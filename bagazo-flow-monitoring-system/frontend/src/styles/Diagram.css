@@ -1,0 +1,65 @@
+.diagram-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+}
+
+.diagram-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #06b6d4;
+  margin-bottom: 1rem;
+}
+
+.diagram-svg {
+  width: 100%;
+  height: auto;
+  min-height: 400px;
+  border: 1px solid #475569;
+  background-color: #0f172a;
+  border-radius: 0.375rem;
+}
+
+.punto-clickeable {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.punto-clickeable:hover .punto-circle {
+  opacity: 1 !important;
+  filter: brightness(1.2);
+  r: 24;
+}
+
+.punto-clickeable:hover .punto-text {
+  font-size: 18;
+}
+
+.punto-circle {
+  transition: all 0.2s ease;
+}
+
+.punto-text {
+  pointer-events: none;
+  user-select: none;
+  transition: font-size 0.2s ease;
+}
+
+.diagram-hint {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .diagram-svg {
+    min-height: 300px;
+  }
+
+  .diagram-title {
+    font-size: 1.25rem;
+  }
+}
