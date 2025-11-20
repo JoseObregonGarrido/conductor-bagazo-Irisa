@@ -8,7 +8,7 @@
 .diagram-title {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #06b6d4;
+  color: #00A352;
   margin-bottom: 0.5rem;
 }
 
@@ -109,17 +109,17 @@
 }
 
 .legend-item:hover {
-  border-color: #06b6d4;
+  border-color: #FFFAFA;
   opacity: 1 !important;
   transform: scale(1.05) !important;
-  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 255, 250, 0.3);
 }
 
 .legend-item.active {
-  border-color: white;
+  border-color: #FFFAFA;
   opacity: 1 !important;
   transform: scale(1.1) !important;
-  box-shadow: 0 6px 16px rgba(6, 182, 212, 0.5);
+  box-shadow: 0 6px 16px rgba(0, 163, 82, 0.5);
 }
 
 .legend-number {

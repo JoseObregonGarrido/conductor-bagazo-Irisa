@@ -102,7 +102,6 @@ function getColorForState(color) {
     red: '#ef4444',    // Rojo para estados criticos/alerta
     green: '#22c55e',  // Verde para estados normales/operativos
     yellow: '#eab308', // Amarillo para advertencias
-    blue: '#3b82f6'    // Azul para informacion o estado neutro
   };
   // Devuelve el codigo hexadecimal o Rojo por defecto
   return colorMap[color] || '#ef4444';

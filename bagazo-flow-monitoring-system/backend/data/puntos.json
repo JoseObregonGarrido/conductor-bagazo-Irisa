@@ -139,7 +139,7 @@
     "presion": "68.2 Kg/Cm2",
     "temperatura": "501.5°C",
     "velocidad": "292 RPM",
-    "estado": "Activo",
+    "estado": "Operativo",
     "color": "red"
   },
   {
@@ -152,7 +152,7 @@
     "presion": "70.0 Kg/Cm2 (límite)",
     "temperatura": "501.5°C",
     "velocidad": "0 RPM",
-    "estado": "En Standby",
+    "estado": "Stanby",
     "color": "red"
   }
 ]
