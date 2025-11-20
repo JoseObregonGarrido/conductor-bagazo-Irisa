@@ -17,7 +17,7 @@ export default function Diagram({ puntos, onPuntoClick }) {
 
   return (
     <div className="diagram-container">
-      <h2 className="diagram-title">Sistema de Monitoreo - Conductor de Bagazo ISGEC</h2>
+      <h2 className="diagram-title">Sistema de Monitoreo - Conductores de Bagazo </h2>
       
       <div className="diagram-content">
         {/* Imagen del conductor */}

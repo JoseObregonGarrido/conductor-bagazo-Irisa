@@ -10,16 +10,16 @@ export default function Header() {
                 {/* Sección de contenido: título y subtítulo */}
                 <div className="header-content">
                     {/* Título principal de la aplicación */}
-                    <h1 className="header-title">Bagazo Flow Monitoring System</h1>
+                    <h1 className="header-title">Sistema de Monitoreo - Conductores de Bagazo</h1>
                     {/* Subtítulo descriptivo del sistema */}
-                    <p className="header-subtitle">Sistema de Conductores de Bagazo ISGEC</p>
+                    <p className="header-subtitle">Sistema de Monitoreo - Conductores de Bagazo</p>
                 </div>
                 {/* Sección de información: badges con datos de la empresa */}
                 <div className="header-info">
                     {/* Badge con el nombre de la empresa */}
                     <span className="badge">IRISA S.A.S.</span>
                     {/* Badge secundario con la ubicación */}
-                    <span className="badge badge-secondary">La virginia</span>
+                    <span className="badge badge-secondary">La Virginia</span>
                 </div>
             </div>
         </header>

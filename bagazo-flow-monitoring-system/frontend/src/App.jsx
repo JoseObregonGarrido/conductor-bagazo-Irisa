@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Diagram from './components/Diagram';
 import InfoPanel from './components/InfoPanel';
+import Footer from "./components/footer";
 import { obtenerPuntos, verificarBackend } from './services/api';
 import './App.css';
 
@@ -36,6 +37,10 @@ export default function App() {
     setPuntoSeleccionado(punto);
   };
 
+  const handleCerrarPanel = () => {
+    setPuntoSeleccionado(null);
+  };
+
   if (cargando) {
     return (
       <div className="app">
@@ -46,6 +51,7 @@ export default function App() {
             <p>Cargando datos...</p>
           </div>
         </main>
+        <Footer />
       </div>
     );
   }
@@ -63,6 +69,7 @@ export default function App() {
             </button>
           </div>
         </main>
+        <Footer />
       </div>
     );
   }
@@ -83,10 +90,14 @@ export default function App() {
             )}
           </div>
           <div className="info-section">
-            <InfoPanel punto={puntoSeleccionado} />
+            <InfoPanel 
+              punto={puntoSeleccionado} 
+              onClose={handleCerrarPanel}
+            />
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
