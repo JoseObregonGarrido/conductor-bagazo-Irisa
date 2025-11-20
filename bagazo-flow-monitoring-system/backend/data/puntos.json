@@ -1,7 +1,8 @@
 [
   {
     "id": 1,
-    "nombre": "Molino 1",
+    "nombre": "1",
+    "coordenadas": { "x": 60, "y": 320 },
     "tipo": "Zona de Molienda",
     "ubicacion": "Molinos",
     "caudal": "15.2 T/H",
@@ -9,11 +10,12 @@
     "temperatura": "480°C",
     "velocidad": "45 RPM",
     "estado": "Operativo",
-    "color": "green"
+    "color": "red"
   },
   {
     "id": 2,
-    "nombre": "Molino 2",
+    "nombre": "2",
+    "coordenadas": { "x": 135, "y": 320 },
     "tipo": "Zona de Molienda",
     "ubicacion": "Molinos",
     "caudal": "14.8 T/H",
@@ -21,11 +23,12 @@
     "temperatura": "478°C",
     "velocidad": "44 RPM",
     "estado": "Operativo",
-    "color": "green"
+    "color": "red"
   },
   {
     "id": 3,
-    "nombre": "Conexión Bagacera",
+    "nombre": "3",
+    "coordenadas": { "x": 210, "y": 320 },
     "tipo": "Distribuidor Principal",
     "ubicacion": "Centro",
     "caudal": "22.5 T/H",
@@ -37,7 +40,8 @@
   },
   {
     "id": 4,
-    "nombre": "Salida Bagacera 1",
+    "nombre": "4",
+    "coordenadas": { "x": 285, "y": 320 },
     "tipo": "Salida de Bagazo",
     "ubicacion": "Bagacera",
     "caudal": "11.2 T/H",
@@ -45,11 +49,12 @@
     "temperatura": "475°C",
     "velocidad": "42 RPM",
     "estado": "Operativo",
-    "color": "green"
+    "color": "red"
   },
   {
     "id": 5,
-    "nombre": "Salida Bagacera 2",
+    "nombre": "5",
+    "coordenadas": { "x": 360, "y": 320 },
     "tipo": "Salida de Bagazo",
     "ubicacion": "Bagacera",
     "caudal": "10.8 T/H",
@@ -61,7 +66,8 @@
   },
   {
     "id": 6,
-    "nombre": "Turbina 1",
+    "nombre": "6",
+    "coordenadas": { "x": 435, "y": 320 },
     "tipo": "Equipo de Expansión",
     "ubicacion": "Centro",
     "caudal": "18.3 T/H",
@@ -73,7 +79,8 @@
   },
   {
     "id": 7,
-    "nombre": "Turbina 2",
+    "nombre": "7",
+    "coordenadas": { "x": 510, "y": 320 },
     "tipo": "Equipo de Expansión",
     "ubicacion": "Centro",
     "caudal": "16.9 T/H",
@@ -85,7 +92,8 @@
   },
   {
     "id": 8,
-    "nombre": "Precalentador",
+    "nombre": "8",
+    "coordenadas": { "x": 585, "y": 320 },
     "tipo": "Intercambiador de Calor",
     "ubicacion": "Entrada",
     "caudal": "20.1 T/H",
@@ -97,7 +105,8 @@
   },
   {
     "id": 9,
-    "nombre": "Economizador",
+    "nombre": "9",
+    "coordenadas": { "x": 660, "y": 320 },
     "tipo": "Intercambiador de Calor",
     "ubicacion": "Centro",
     "caudal": "19.5 T/H",
@@ -109,7 +118,8 @@
   },
   {
     "id": 10,
-    "nombre": "Salida Vapor Principal",
+    "nombre": "10",
+    "coordenadas": { "x": 735, "y": 320 },
     "tipo": "Salida Principal",
     "ubicacion": "Centro",
     "caudal": "142.9 T/H",
@@ -121,7 +131,8 @@
   },
   {
     "id": 11,
-    "nombre": "Regulador Presión",
+    "nombre": "11",
+    "coordenadas": { "x": 810, "y": 320 },
     "tipo": "Control",
     "ubicacion": "Centro",
     "caudal": "142.9 T/H",
@@ -133,7 +144,8 @@
   },
   {
     "id": 12,
-    "nombre": "Válvula Seguridad",
+    "nombre": "12",
+    "coordenadas": { "x": 885, "y": 320 },
     "tipo": "Protección",
     "ubicacion": "Centro",
     "caudal": "142.9 T/H",
