@@ -30,7 +30,8 @@
   overflow: hidden;
   background-color: #0f172a;
   flex-shrink: 0;
-  height: 200px;
+  /* Aumentado para mostrar mejor el modelo 3D */
+  height: 360px;
 }
 
 .diagram-image {

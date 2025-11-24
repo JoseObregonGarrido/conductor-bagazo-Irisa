@@ -1,4 +1,5 @@
 import '../styles/Diagram.css';
+import Model3D from './Model3D';
 
 export default function Diagram({ puntos, onPuntoClick }) {
   const getColorClass = (color) => {
@@ -22,11 +23,7 @@ export default function Diagram({ puntos, onPuntoClick }) {
       <div className="diagram-content">
         {/* Imagen del conductor */}
         <div className="diagram-image-wrapper">
-          <img 
-            src="/conductor-bagazo.jpg" 
-            alt="Conductor de Bagazo" 
-            className="diagram-image"
-          />
+          <Model3D />
         </div>
 
         {/* Leyenda - Botones clickeables */}
@@ -53,7 +50,7 @@ export default function Diagram({ puntos, onPuntoClick }) {
         </div>
       </div>
 
-      <p className="diagram-hint">💡 Haz clic en cualquier cuadro para ver la información completa del punto</p>
+      <p className="diagram-hint">Haz clic en cualquier cuadro para ver la información completa del punto</p>
     </div>
   );
 }

@@ -5,7 +5,7 @@ export default function InfoPanel({ punto, onClose }) {
     return (
       <div className="info-panel">
         <div className="info-empty">
-          <div className="empty-icon">📍</div>
+          <div className="empty-icon"></div>
           <h3>Selecciona un Punto</h3>
           <p>Haz clic en cualquier número de la leyenda para ver los detalles del punto de control.</p>
         </div>
@@ -24,11 +24,15 @@ export default function InfoPanel({ punto, onClose }) {
           <p className="info-type">{punto.tipo}</p>
         </div>
         <button className="close-button" onClick={onClose} title="Cerrar">
-          ✕
+          Cerrar
         </button>
       </div>
 
       <div className="info-content">
+        <div className="model3d-wrapper">
+          <Model3D />
+        </div>
+        
         <div className="info-section">
           <h4 className="section-title">Información General</h4>
           <div className="info-item">
