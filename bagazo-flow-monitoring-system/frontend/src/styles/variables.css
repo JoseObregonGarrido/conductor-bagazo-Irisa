@@ -1,0 +1,61 @@
+:root {
+  /* Colores principales */
+  --color-primary: #00A352;
+  --color-primary-dark: #008040;
+  --color-primary-light: #33BA7D;
+  
+  /* Estados */
+  --color-success: #00A352;
+  --color-warning: #FF9800;
+  --color-danger: #DC3545;
+  --color-info: #3b82f6;
+  
+  /* Escala de grises */
+  --color-white: #FFFAFA;
+  --color-silver: #C0C0C0;
+  --color-gray-light: #cbd5e1;
+  --color-gray-medium: #94a3b8;
+  --color-gray-dark: #475569;
+  --color-gray-darker: #334155;
+  --color-gray-darkest: #1e293b;
+  --color-bg-dark: #0f172a;
+  
+  /* Bordes */
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.375rem;
+  --border-radius-lg: 0.5rem;
+  
+  /* Espaciado */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 0.75rem;
+  --spacing-lg: 1rem;
+  --spacing-xl: 1.5rem;
+  --spacing-2xl: 2rem;
+  
+  /* Tipografía */
+  --font-size-xs: 0.65rem;
+  --font-size-sm: 0.7rem;
+  --font-size-base: 0.75rem;
+  --font-size-md: 0.8rem;
+  --font-size-lg: 0.85rem;
+  --font-size-xl: 0.9rem;
+  --font-size-2xl: 0.95rem;
+  --font-size-3xl: 1rem;
+  --font-size-4xl: 1.25rem;
+  --font-size-5xl: 1.5rem;
+  
+  /* Sombras */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 6px 16px rgba(0, 163, 82, 0.5);
+  --shadow-light: 0 4px 12px rgba(255, 255, 250, 0.3);
+  
+  /* Transiciones */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+  --transition-slow: 0.3s ease;
+  
+  /* Tamaños máximos */
+  --max-width: 1400px;
+}

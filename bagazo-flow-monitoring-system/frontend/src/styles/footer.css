@@ -1,23 +1,23 @@
 .footer {
-  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-  border-top: 2px solid #00A352;
-  padding: 1rem 0;
+  background: linear-gradient(135deg, var(--color-gray-darkest) 0%, var(--color-gray-darker) 100%);
+  border-top: 2px solid var(--color-primary);
+  padding: var(--spacing-lg) 0;
   margin-top: auto;
   box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .footer-container {
-  max-width: 1400px;
+  max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 var(--spacing-2xl);
 }
 
 .footer-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 2rem;
-  margin-bottom: 1rem;
+  gap: var(--spacing-2xl);
+  margin-bottom: var(--spacing-lg);
 }
 
 .footer-info {
@@ -25,28 +25,28 @@
 }
 
 .footer-text {
-  font-size: 0.9rem;
-  color: #FFFAFA;
+  font-size: var(--font-size-xl);
+  color: var(--color-white);
   margin: 0;
   font-weight: 500;
 }
 
 .footer-subtitle {
-  font-size: 0.8rem;
-  color: #C0C0C0;
+  font-size: var(--font-size-md);
+  color: var(--color-silver);
   margin: 0.25rem 0 0 0;
 }
 
 .footer-license {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
 }
 
 .footer-license a {
   display: flex;
   align-items: center;
-  transition: transform 0.2s ease;
+  transition: transform var(--transition-normal);
 }
 
 .footer-license a:hover {
@@ -55,13 +55,13 @@
 .footer-license img {
   height: 31px;
   width: auto;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius-sm);
 }
 
 .footer-divider {
   height: 1px;
-  background-color: #475569;
-  margin-bottom: 0.75rem;
+  background-color: var(--color-gray-dark);
+  margin-bottom: var(--spacing-md);
 }
 
 .footer-credits {
@@ -69,20 +69,20 @@
 }
 
 .footer-credits-text {
-  font-size: 0.75rem;
-  color: #94a3b8;
+  font-size: var(--font-size-base);
+  color: var(--color-gray-medium);
   margin: 0;
 }
 
 .footer-link {
-  color: #00A352;
+  color: var(--color-primary);
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.2s ease;
+  transition: color var(--transition-normal);
 }
 
 .footer-link:hover {
-  color: #FFFAFA;
+  color: var(--color-white);
   text-decoration: underline;
 }
 
