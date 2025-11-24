@@ -1,6 +1,19 @@
 import '../styles/InfoPanel.css';
 
 export default function InfoPanel({ punto, onClose }) {
+  // Log para debugging
+  console.log('InfoPanel recibió punto:', punto);
+
+  const getColorForState = (color) => {
+    const colorMap = {
+      red: '#DC3545',
+      green: '#00A352',
+      yellow: '#FF9800',
+      blue: '#3b82f6'
+    };
+    return colorMap[color] || '#DC3545';
+  };
+
   if (!punto) {
     return (
       <div className="info-panel">
@@ -29,10 +42,6 @@ export default function InfoPanel({ punto, onClose }) {
       </div>
 
       <div className="info-content">
-        <div className="model3d-wrapper">
-          <Model3D />
-        </div>
-        
         <div className="info-section">
           <h4 className="section-title">Información General</h4>
           <div className="info-item">
@@ -41,7 +50,7 @@ export default function InfoPanel({ punto, onClose }) {
           </div>
           <div className="info-item">
             <span className="label">Estado:</span>
-            <span className={`value state-${punto.estado.toLowerCase().replace(' ', '-')}`}>
+            <span className="value">
               {punto.estado}
             </span>
           </div>
@@ -76,14 +85,4 @@ export default function InfoPanel({ punto, onClose }) {
       </div>
     </div>
   );
-}
-
-function getColorForState(color) {
-  const colorMap = {
-    red: '#DC3545',
-    green: '#00A352',
-    yellow: '#FF9800',
-    blue: '#3b82f6'
-  };
-  return colorMap[color] || '#DC3545';
 }
