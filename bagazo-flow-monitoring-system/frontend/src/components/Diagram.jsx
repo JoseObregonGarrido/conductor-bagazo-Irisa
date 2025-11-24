@@ -19,7 +19,7 @@ export default function Diagram({ puntos, onPuntoClick }) {
 
   return (
     <div className="diagram-container">
-      <h2 className="diagram-title">Sistema de Monitoreo - Conductores de Bagazo</h2>
+      <h2 className="diagram-title"> Conductores de Bagazo</h2>
       
       <div className="diagram-content">
         {/* Modelo 3D */}
@@ -51,7 +51,7 @@ export default function Diagram({ puntos, onPuntoClick }) {
         </div>
       </div>
 
-      <p className="diagram-hint">Haz clic en cualquier cuadro para ver la información completa del punto</p>
+      <p className="diagram-hint">Haz clic en cualquier cuadro para ver la información completa del Cuadrado</p>
     </div>
   );
 }

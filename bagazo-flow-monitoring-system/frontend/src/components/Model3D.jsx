@@ -105,7 +105,7 @@ export default function Model3D() {
     <div className="model3d-container">
       <div ref={containerRef} className="model3d-viewer" />
       <div className="model3d-info">
-        <p>Usa el mouse para rotar | Scroll para zoom</p>
+        <p>Usa el mouse para rotar o su pantalla táctil | Scroll para zoom</p>
       </div>
     </div>
   );

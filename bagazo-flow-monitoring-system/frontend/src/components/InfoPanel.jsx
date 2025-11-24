@@ -19,8 +19,8 @@ export default function InfoPanel({ punto, onClose }) {
       <div className="info-panel">
         <div className="info-empty">
           <div className="empty-icon"></div>
-          <h3>Selecciona un Punto</h3>
-          <p>Haz clic en cualquier número de la leyenda para ver los detalles del punto de control.</p>
+          <h3>Selecciona un Cuadrado</h3>
+          <p>Haz clic en cualquier cuadro  de la leyenda para ver los detalles del punto de control.</p>
         </div>
       </div>
     );
