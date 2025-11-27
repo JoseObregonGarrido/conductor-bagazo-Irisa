@@ -1,33 +1,31 @@
+import { useState, useEffect } from 'react';
 import '../styles/InfoPanel.css';
 
 export default function InfoPanel({ punto, onClose }) {
-  // Log para debugging
-  console.log('InfoPanel recibió punto:', punto);
+  const [mostrarAnimacion, setMostrarAnimacion] = useState(false);
 
-  const getColorForState = (color) => {
-    const colorMap = {
-      red: '#DC3545',
-      green: '#00A352',
-      yellow: '#FF9800',
-      blue: '#3b82f6'
-    };
-    return colorMap[color] || '#DC3545';
-  };
+  useEffect(() => {
+    if (punto) {
+      setMostrarAnimacion(false);
+      setTimeout(() => {
+        setMostrarAnimacion(true);
+      }, 50);
+    }
+  }, [punto?.id]);
 
   if (!punto) {
     return (
       <div className="info-panel">
         <div className="info-empty">
-          <div className="empty-icon"></div>
-          <h3>Selecciona un Cuadrado</h3>
-          <p>Haz clic en cualquier cuadro  de la leyenda para ver los detalles del punto de control.</p>
+          <h3>Selecciona un Punto</h3>
+          <p>Haz clic en cualquier número de la leyenda para ver los detalles del punto de control.</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="info-panel">
+    <div className={`info-panel ${mostrarAnimacion ? 'animated' : ''}`}>
       <div className="info-header">
         <div className="punto-badge" style={{ backgroundColor: getColorForState(punto.color) }}>
           {punto.id}
@@ -37,7 +35,7 @@ export default function InfoPanel({ punto, onClose }) {
           <p className="info-type">{punto.tipo}</p>
         </div>
         <button className="close-button" onClick={onClose} title="Cerrar">
-          Cerrar
+          ✕
         </button>
       </div>
 
@@ -50,7 +48,7 @@ export default function InfoPanel({ punto, onClose }) {
           </div>
           <div className="info-item">
             <span className="label">Estado:</span>
-            <span className="value">
+            <span className={`value state-${punto.estado.toLowerCase().replace(' ', '-')}`}>
               {punto.estado}
             </span>
           </div>
@@ -85,4 +83,14 @@ export default function InfoPanel({ punto, onClose }) {
       </div>
     </div>
   );
+}
+
+function getColorForState(color) {
+  const colorMap = {
+    red: '#DC3545',
+    green: '#00A352',
+    yellow: '#FF9800',
+    blue: '#3b82f6'
+  };
+  return colorMap[color] || '#DC3545';
 }

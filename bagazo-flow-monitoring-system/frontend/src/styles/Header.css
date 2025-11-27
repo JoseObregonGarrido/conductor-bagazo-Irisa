@@ -22,7 +22,7 @@
 .header-title {
   font-size: var(--font-size-5xl);
   font-weight: 700;
-  color: var(--color-primary);
+  color: var(--color-white);
   margin-bottom: 0.25rem;
   letter-spacing: -0.5px;
 }

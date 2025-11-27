@@ -9,7 +9,7 @@
 .diagram-title {
   font-size: var(--font-size-3xl);
   font-weight: 600;
-  color: var(--color-primary);
+  color: var(--color-white);
   margin: 0;
   flex-shrink: 0;
 }

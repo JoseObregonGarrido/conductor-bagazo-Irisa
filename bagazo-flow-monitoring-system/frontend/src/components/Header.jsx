@@ -18,8 +18,6 @@ export default function Header() {
                 <div className="header-info">
                     {/* Badge con el nombre de la empresa */}
                     <span className="badge">IRISA S.A.S.</span>
-                    {/* Badge secundario con la ubicación */}
-                    <span className="badge badge-secondary">La Virginia</span>
                 </div>
             </div>
         </header>
