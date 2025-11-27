@@ -51,7 +51,7 @@ export default function Model3D() {
 
     // Cargar modelo 3D
     const loader = new GLTFLoader();
-    loader.load('/model/modelo-3d.glb', (gltf) => {
+    loader.load('/model/modelo-3d-comprimido.glb', (gltf) => {
       const model = gltf.scene;
       model.scale.set(1.15, 1.15, 1.15);
       scene.add(model);
