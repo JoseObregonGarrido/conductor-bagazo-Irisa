@@ -31,6 +31,8 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  /* >>> ESTO FIJA EL ESPACIO PARA EL VISOR 3D Y ARREGLA EL CLS */
+  min-height: 70vh; 
 }
 
 .info-section {
@@ -115,6 +117,11 @@
 }
 
 @media (max-width: 768px) {
+  /* Asegura una altura menor para móviles en vista de columna */
+  .diagram-section {
+      min-height: 50vh; 
+  }
+
   .main-content {
     padding: 0.5rem;
   }
@@ -123,28 +130,14 @@
     grid-template-columns: 1fr;
     gap: 0.5rem;
   }
-
-  .diagram-section,
-  .info-section {
-    padding: 0.5rem;
-  }
+  /* ... (el resto de tus media queries) ... */
 }
 
 @media (max-width: 640px) {
   .main-content {
     padding: 0.4rem;
   }
-
-  .content-grid {
-    grid-template-columns: 1fr;
-    gap: 0.4rem;
-  }
-
-  .diagram-section,
-  .info-section {
-    padding: 0.4rem;
-    border-radius: 0.25rem;
-  }
+  /* ... (el resto de tus media queries) ... */
 }
 
 /* iPhone X: 375 x 812 */
