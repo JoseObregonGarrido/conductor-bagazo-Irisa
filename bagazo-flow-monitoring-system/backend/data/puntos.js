@@ -10,7 +10,7 @@
     "temperatura": "350.0°C",
     "velocidad": "10 RPM",
     "estado": "Operativo",
-    "color": "green"
+    "color": "red"
   },
   {
     "id": 2, 
@@ -23,7 +23,7 @@
     "temperatura": "350.0°C",
     "velocidad": "20 RPM",
     "estado": "Operativo",
-    "color": "green"
+    "color": "red"
   },
   {
     "id": 3, 
@@ -36,7 +36,7 @@
     "temperatura": "350.0°C",
     "velocidad": "30 RPM",
     "estado": "Alerta",
-    "color": "yellow"
+    "color": "red"
   },
   {
     "id": 4, 
@@ -49,7 +49,7 @@
     "temperatura": "350.0°C",
     "velocidad": "0 RPM",
     "estado": "Cerrada",
-    "color": "gray"
+    "color": "red"
   },
   {
     "id": 5, 
@@ -88,7 +88,7 @@
     "temperatura": "350.0°C",
     "velocidad": "60 RPM",
     "estado": "Operativo",
-    "color": "green"
+    "color": "red"
   },
   {
     "id": 8, 
@@ -101,7 +101,7 @@
     "temperatura": "350.0°C",
     "velocidad": "70 RPM",
     "estado": "Operativo",
-    "color": "green"
+    "color": "yellow"
   },
   {
     "id": 9, 
@@ -114,7 +114,7 @@
     "temperatura": "350.0°C",
     "velocidad": "80 RPM",
     "estado": "Alerta",
-    "color": "yellow"
+    "color": "red"
   },
   {
     "id": 10, 
