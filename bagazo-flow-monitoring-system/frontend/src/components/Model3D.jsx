@@ -53,15 +53,13 @@ export default function Model3D() {
 
     // Cargar modelo 3D
     const loader = new GLTFLoader();
-
-    // >>>>> CONFIGURACIÓN CRÍTICA PARA EL TBT <<<<<
     // 2. Instanciar DRACOLoader para usar Web Workers
     const dracoLoader = new DRACOLoader();
     // 3. Establecer la ruta a los archivos que copiaste en 'public/draco-gltf/'
     dracoLoader.setDecoderPath('/draco-gltf/'); 
     // 4. Conectar el decodificador al GLTFLoader
     loader.setDRACOLoader(dracoLoader);
-    // >>>>> FIN CONFIGURACIÓN CRÍTICA <<<<<
+
 
     loader.load('/model/modelo-3d-comprimido.glb', (gltf) => {
       const model = gltf.scene;

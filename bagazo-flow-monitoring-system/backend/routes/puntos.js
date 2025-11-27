@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Ruta al archivo de datos
-const puntosFilePath = path.join(__dirname, '../data/puntos.json');
+const puntosFilePath = path.join(__dirname, '../data/puntos.js');
 
 // Función para leer los datos
 const leerPuntos = () => {
