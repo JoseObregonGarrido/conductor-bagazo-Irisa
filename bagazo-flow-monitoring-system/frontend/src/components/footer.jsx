@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="footer-content">
           <div className="footer-info">
             <p className="footer-text">
-              © {currentYear} Sistema de Monitoreo - Conductores de Bagazo - IRISA S.A.S.
+              © {currentYear} Sistema Conductores de Bagazo - IRISA S.A.S.
             </p>
             <p className="footer-subtitle">
               Sistema de Monitoreo - Conductores de Bagazo
