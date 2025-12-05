@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import '../styles/Diagram.css';
 import Model3D from './Model3D';
 
 export default function Diagram({ puntos, onPuntoClick }) {
+  const [puntoActivo, setPuntoActivo] = useState(null);
+
   const getColorClass = (color) => {
     const colorMap = {
       red: '#DC3545',
@@ -13,13 +16,13 @@ export default function Diagram({ puntos, onPuntoClick }) {
   };
 
   const handlePuntoClick = (punto) => {
-    console.log('Punto clickeado:', punto);
+    setPuntoActivo(punto.id);
     onPuntoClick(punto);
   };
 
   return (
     <div className="diagram-container">
-      <h2 className="diagram-title"> Conductores de Bagazo</h2>
+      <h2 className="diagram-title">Conductores de Bagazo</h2>
       
       <div className="diagram-content">
         {/* Modelo 3D */}
@@ -29,29 +32,27 @@ export default function Diagram({ puntos, onPuntoClick }) {
 
         {/* Leyenda */}
         <div className="diagram-legend">
-          <p className="legend-title">Selecciona un punto para ver los detalles:</p>
+          <p className="legend-title">Selecciona un conductor para ver los detalles:</p>
           <div className="legend-items">
-            {puntos.map((punto) => {
-              return (
-                <button
-                  key={punto.id}
-                  className="legend-item"
-                  style={{ 
-                    backgroundColor: getColorClass(punto.color),
-                    opacity: 0.7
-                  }}
-                  onClick={() => handlePuntoClick(punto)}
-                  title={punto.nombre}
-                >
-                  <span className="legend-number">{punto.id}</span>
-                </button>
-              );
-            })}
+            {puntos.map((punto) => (
+              <button
+                key={punto.id}
+                className={`legend-item ${puntoActivo === punto.id ? 'active' : ''}`}
+                style={{ 
+                  backgroundColor: getColorClass(punto.color),
+                  opacity: puntoActivo === punto.id ? 1 : 0.7
+                }}
+                onClick={() => handlePuntoClick(punto)}
+                title={punto.nombre}
+              >
+                <span className="legend-number">{punto.nombre}</span>
+              </button>
+            ))}
           </div>
         </div>
       </div>
 
-      <p className="diagram-hint">Haz clic en cualquier cuadro para ver la información completa del Cuadrado</p>
+      <p className="diagram-hint">Haz clic en cualquier conductor para ver la información completa</p>
     </div>
   );
 }

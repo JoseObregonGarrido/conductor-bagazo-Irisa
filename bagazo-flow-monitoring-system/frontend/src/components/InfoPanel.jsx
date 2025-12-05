@@ -17,8 +17,8 @@ export default function InfoPanel({ punto, onClose }) {
     return (
       <div className="info-panel">
         <div className="info-empty">
-          <h3>Selecciona un Punto</h3>
-          <p>Haz clic en cualquier número de la leyenda para ver los detalles del punto de control.</p>
+          <h3>Selecciona un Conductor</h3>
+          <p>Haz clic en cualquier conductor (C1 a C12) de la leyenda para ver su descripción.</p>
         </div>
       </div>
     );
@@ -27,12 +27,8 @@ export default function InfoPanel({ punto, onClose }) {
   return (
     <div className={`info-panel ${mostrarAnimacion ? 'animated' : ''}`}>
       <div className="info-header">
-        <div className="punto-badge" style={{ backgroundColor: getColorForState(punto.color) }}>
-          {punto.id}
-        </div>
-        <div className="info-header-text">
-          <h2 className="info-title">{punto.nombre}</h2>
-          <p className="info-type">{punto.tipo}</p>
+        <div className="punto-badge" style={{ backgroundColor: punto.color }}>
+          {punto.nombre}
         </div>
         <button className="close-button" onClick={onClose} title="Cerrar">
           ✕
@@ -41,56 +37,15 @@ export default function InfoPanel({ punto, onClose }) {
 
       <div className="info-content">
         <div className="info-section">
-          <h4 className="section-title">Información General</h4>
-          <div className="info-item">
-            <span className="label">Ubicación:</span>
-            <span className="value">{punto.ubicacion}</span>
-          </div>
-          <div className="info-item">
-            <span className="label">Estado:</span>
-            <span className={`value state-${punto.estado.toLowerCase().replace(' ', '-')}`}>
-              {punto.estado}
-            </span>
-          </div>
+          <p className="info-description">{punto.descripcion}</p>
         </div>
+      </div>
 
+      <div className="info-content">
         <div className="info-section">
-          <h4 className="section-title">Parámetros Operativos</h4>
-          <div className="info-item">
-            <span className="label">Caudal:</span>
-            <span className="value">{punto.caudal}</span>
-          </div>
-          <div className="info-item">
-            <span className="label">Presión:</span>
-            <span className="value">{punto.presion}</span>
-          </div>
-          <div className="info-item">
-            <span className="label">Temperatura:</span>
-            <span className="value">{punto.temperatura}</span>
-          </div>
-          <div className="info-item">
-            <span className="label">Velocidad:</span>
-            <span className="value">{punto.velocidad}</span>
-          </div>
-        </div>
-
-        <div className="info-status">
-          <div className="status-indicator" style={{ backgroundColor: getColorForState(punto.color) }}></div>
-          <p className="status-text">
-            Punto {punto.id} - {punto.nombre}
-          </p>
+          <p className="info-description">{punto.tipo}</p>
         </div>
       </div>
     </div>
   );
-}
-
-function getColorForState(color) {
-  const colorMap = {
-    red: '#DC3545',
-    green: '#00A352',
-    yellow: '#FF9800',
-    blue: '#3b82f6'
-  };
-  return colorMap[color] || '#DC3545';
 }

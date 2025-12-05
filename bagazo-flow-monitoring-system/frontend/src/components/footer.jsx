@@ -22,7 +22,7 @@ export default function Footer() {
         <div className="footer-credits">
           <p className="footer-credits-text">| 
             <a href="https://www.ingeniorisaralda.com/es/" className="footer-link"> IRISA S.A.S </a> | 
-            <a href="#" className="footer-link"> Pereira, Risaralda </a>
+            <a href="#" className="footer-link"> La Virginia </a>
           </p>
         </div>
       </div>
