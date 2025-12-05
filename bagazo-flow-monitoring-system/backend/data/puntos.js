@@ -1,158 +1,50 @@
 [
   {
     "id": 1, 
-    "nombre": "1", 
-    "coordenadas": { "x": 100, "y": 50 }, 
-    "tipo": "Sensor", 
-    "ubicacion": "Tolva Sur", 
-    "caudal": "100.0 T/H",
-    "presion": "50.0 Kg/Cm2",
-    "temperatura": "350.0°C",
-    "velocidad": "10 RPM",
-    "estado": "Operativo",
-    "color": "red"
+    
   },
   {
     "id": 2, 
-    "nombre": "2", 
-    "coordenadas": { "x": 150, "y": 60 }, 
-    "tipo": "Motor", 
-    "ubicacion": "Tolva Sur", 
-    "caudal": "100.0 T/H",
-    "presion": "50.0 Kg/Cm2",
-    "temperatura": "350.0°C",
-    "velocidad": "20 RPM",
-    "estado": "Operativo",
-    "color": "red"
+    
   },
   {
     "id": 3, 
-    "nombre": "3", 
-    "coordenadas": { "x": 200, "y": 70 }, 
-    "tipo": "Sensor", 
-    "ubicacion": "Tolva Norte", 
-    "caudal": "100.0 T/H",
-    "presion": "50.0 Kg/Cm2",
-    "temperatura": "350.0°C",
-    "velocidad": "30 RPM",
-    "estado": "Alerta",
-    "color": "red"
+    
   },
   {
     "id": 4, 
-    "nombre": "4", 
-    "coordenadas": { "x": 250, "y": 80 }, 
-    "tipo": "Válvula", 
-    "ubicacion": "Tolva Norte", 
-    "caudal": "100.0 T/H",
-    "presion": "50.0 Kg/Cm2",
-    "temperatura": "350.0°C",
-    "velocidad": "0 RPM",
-    "estado": "Cerrada",
-    "color": "red"
+  
   },
   {
     "id": 5, 
-    "nombre": "5", 
-    "coordenadas": { "x": 300, "y": 90 }, 
-    "tipo": "Control", 
-    "ubicacion": "Centro", 
-    "caudal": "100.0 T/H",
-    "presion": "50.0 Kg/Cm2",
-    "temperatura": "350.0°C",
-    "velocidad": "40 RPM",
-    "estado": "Operativo",
-    "color": "green"
+    
   },
   {
     "id": 6, 
-    "nombre": "6", 
-    "coordenadas": { "x": 350, "y": 100 }, 
-    "tipo": "Protección", 
-    "ubicacion": "Centro", 
-    "caudal": "100.0 T/H",
-    "presion": "50.0 Kg/Cm2",
-    "temperatura": "350.0°C",
-    "velocidad": "50 RPM",
-    "estado": "Fallo",
-    "color": "red"
+    
   },
   {
     "id": 7, 
-    "nombre": "7", 
-    "coordenadas": { "x": 400, "y": 110 }, 
-    "tipo": "Sensor", 
-    "ubicacion": "Fosa", 
-    "caudal": "100.0 T/H",
-    "presion": "50.0 Kg/Cm2",
-    "temperatura": "350.0°C",
-    "velocidad": "60 RPM",
-    "estado": "Operativo",
-    "color": "red"
+    
   },
   {
     "id": 8, 
-    "nombre": "8", 
-    "coordenadas": { "x": 450, "y": 120 }, 
-    "tipo": "Motor", 
-    "ubicacion": "Fosa", 
-    "caudal": "100.0 T/H",
-    "presion": "50.0 Kg/Cm2",
-    "temperatura": "350.0°C",
-    "velocidad": "70 RPM",
-    "estado": "Operativo",
-    "color": "yellow"
+    
   },
   {
     "id": 9, 
-    "nombre": "9", 
-    "coordenadas": { "x": 500, "y": 130 }, 
-    "tipo": "Control", 
-    "ubicacion": "Fosa", 
-    "caudal": "100.0 T/H",
-    "presion": "50.0 Kg/Cm2",
-    "temperatura": "350.0°C",
-    "velocidad": "80 RPM",
-    "estado": "Alerta",
-    "color": "red"
+    
   },
   {
     "id": 10, 
-    "nombre": "10", 
-    "coordenadas": { "x": 735, "y": 320 }, 
-    "tipo": "Sensor", 
-    "ubicacion": "Centro", 
-    "caudal": "142.9 T/H",
-    "presion": "68.2 Kg/Cm2",
-    "temperatura": "501.5°C",
-    "velocidad": "52 RPM",
-    "estado": "Operativo",
-    "color": "green"
+    
   },
   {
     "id": 11,
-    "nombre": "11",
-    "coordenadas": { "x": 810, "y": 320 },
-    "tipo": "Control",
-    "ubicacion": "Centro",
-    "caudal": "142.9 T/H",
-    "presion": "68.2 Kg/Cm2",
-    "temperatura": "501.5°C",
-    "velocidad": "292 RPM",
-    "estado": "Operativo",
-    "color": "red"
+    
   },
   {
     "id": 12,
-    "nombre": "12",
-    "coordenadas": { "x": 885, "y": 320 },
-    "tipo": "Protección",
-    "ubicacion": "Centro",
-    "caudal": "142.9 T/H",
-    "presion": "70.0 Kg/Cm2 (límite)",
-    "temperatura": "501.5°C",
-    "velocidad": "0 RPM",
-    "estado": "Stanby",
-    "color": "red"
+    
   }
 ]
