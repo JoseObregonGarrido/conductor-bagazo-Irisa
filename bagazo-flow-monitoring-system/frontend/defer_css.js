@@ -1,46 +1,56 @@
-// defer_css.js
+// defer_css.js (Versión Final para el formato específico de Vite)
 import fs from 'fs';
 import path from 'path';
 
+// Determina la ruta absoluta del archivo index.html dentro de la carpeta dist
 const indexPath = path.resolve(process.cwd(), 'dist', 'index.html');
 
 try {
   let html = fs.readFileSync(indexPath, 'utf-8');
 
-  // Patrón para buscar la línea <link rel="stylesheet" href="/assets/index-XXXXXX.css">
-  const cssLinkRegex = /<link rel="stylesheet" href="\/assets\/index-.*\.css">/;
+  // Regex específico para encontrar la etiqueta <link rel="stylesheet" crossorigin href="...">
+  // Captura el valor de la URL del CSS en el grupo 1: "([^"]+)"
+  const cssLinkRegex = /<link\s+rel="stylesheet"\s+crossorigin\s+href="([^"]+\.css)">/;
+  
+  const match = html.match(cssLinkRegex);
 
-  // Reemplazar la línea bloqueante por la línea no bloqueante
-  if (cssLinkRegex.test(html)) {
-    const replacement = `
-<link 
-  rel="preload" 
-  href="$&" 
-  as="style" 
-  onload="this.onload=null;this.rel='stylesheet'"
->
-<noscript>
-    $&
-</noscript>
-    `.trim().replace(/"\/\w+/, (match) => match.slice(1)); // Limpia la ruta para que sea absoluta
-
-    // Usamos $& en el reemplazo para referirnos a la línea completa original
-    html = html.replace(cssLinkRegex, replacement.replace('href="$&"', 'href="/assets/' + cssLinkRegex.exec(html)[0].match(/index-.*\.css/)[0] + '"'));
+  if (match) {
+    const originalLinkTag = match[0];
+    const cssPath = match[1]; // Esto captura la URL del CSS (e.g., /assets/index-ByYtZon5.css)
     
-    // Simplificación de reemplazo (menos propenso a errores de regex en la consola)
-    // Buscamos la etiqueta completa y la reemplazamos con la estructura de preload.
-    const originalLink = html.match(cssLinkRegex)[0];
-    const newHtml = html.replace(originalLink, `
-<link rel="preload" href="${originalLink.match(/href="(.*)"/)[1]}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript>${originalLink}</noscript>
-    `.trim());
+    // Nueva estructura de aplazamiento (non-blocking preload)
+    const replacement = `
+<link rel="preload" href="${cssPath}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>${originalLinkTag}</noscript>
+    `.trim();
 
-    fs.writeFileSync(indexPath, newHtml, 'utf-8');
-    console.log(' CSS deferral aplicado a dist/index.html');
+    // Reemplazamos la etiqueta bloqueante original por la nueva estructura
+    html = html.replace(originalLinkTag, replacement);
+    
+    fs.writeFileSync(indexPath, html, 'utf-8');
+    console.log(`✅ CSS deferral aplicado al archivo: ${cssPath}`);
+
   } else {
-    console.log(' No se encontró la etiqueta CSS para aplazar. ¿Vite generó el archivo dist/index.html?');
-  }
+    // Si no lo encuentra, intentamos con un patrón más simple por si el formato ha cambiado
+    console.log('⚠️ No se encontró la etiqueta <link rel="stylesheet" crossorigin...>. Verificando formato simple...');
+    
+    const simpleCssRegex = /<link\s+rel="stylesheet"\s+href="([^"]+\.css)">/;
+    const simpleMatch = html.match(simpleCssRegex);
 
+    if (simpleMatch) {
+      const originalLinkTag = simpleMatch[0];
+      const cssPath = simpleMatch[1];
+      const simpleReplacement = `
+<link rel="preload" href="${cssPath}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>${originalLinkTag}</noscript>
+      `.trim();
+      html = html.replace(originalLinkTag, simpleReplacement);
+      fs.writeFileSync(indexPath, html, 'utf-8');
+      console.log(`✅ CSS deferral aplicado (Formato Simple) al archivo: ${cssPath}`);
+    } else {
+      console.log('❌ Fallo al aplicar CSS deferral. No se encontró ninguna etiqueta CSS compatible.');
+    }
+  }
 } catch (error) {
-  console.error(' Error al modificar el index.html:', error);
+  console.error('❌ Error al modificar el index.html:', error);
 }
