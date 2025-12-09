@@ -71,7 +71,7 @@
 .diagram-title {
   font-size: var(--font-size-3xl);
   font-weight: 600;
-  color: var(--color-primary);
+  color: var(--color-white);
   margin: 0;
   flex-shrink: 0;
 }
@@ -105,7 +105,7 @@
 }
 
 .diagram-legend {
-  background-color: rgba(15, 23, 42, 0.8);
+  background-color: var(--color-gray-darkest);
   border: 2px solid var(--color-gray-darker);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-sm);
@@ -136,7 +136,7 @@
   cursor: pointer;
   transition: all var(--transition-normal);
   font-weight: 600;
-  color: white;
+  color: var(--color-white);
   font-size: var(--font-size-base);
   padding: 0;
   min-height: 35px;
@@ -151,13 +151,14 @@
 
 .legend-item.active {
   border-color: var(--color-white);
-  opacity: 1 !important;
   transform: scale(1.05) !important;
   box-shadow: var(--shadow-lg);
 }
 
 .legend-number {
   font-size: var(--font-size-md);
+  color: var(--color-white);
+  font-weight: 700;
 }
 
 /* Estilos para overlay de etiquetas en el modelo 3D */
@@ -199,7 +200,7 @@
 .diagram-hint {
   text-align: center;
   color: var(--color-gray-medium);
-  font-size: var(--font-size-sm);
+  font-size: 0.85rem;
   margin: 0;
   font-style: italic;
   flex-shrink: 0;

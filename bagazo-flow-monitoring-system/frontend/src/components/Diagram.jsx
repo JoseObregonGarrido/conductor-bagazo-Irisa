@@ -7,12 +7,13 @@ export default function Diagram({ puntos, onPuntoClick }) {
 
   const getColorClass = (color) => {
     const colorMap = {
-      red: '#DC3545',
-      green: '#00A352',
-      yellow: '#FF9800',
-      blue: '#3b82f6'
+      red: '#B81D1D',
+      green: '#006B42',
+      // FIX WCAG 2 AA: Cambiado de '#CC7700' (3.27:1) a '#A06000' (4.57:1 con #fffafa).
+      yellow: '#A06000', 
+      blue: '#1B4965'
     };
-    return colorMap[color] || '#DC3545';
+    return colorMap[color] || '#B81D1D';
   };
 
   const handlePuntoClick = (punto) => {
@@ -39,8 +40,7 @@ export default function Diagram({ puntos, onPuntoClick }) {
                 key={punto.id}
                 className={`legend-item ${puntoActivo === punto.id ? 'active' : ''}`}
                 style={{ 
-                  backgroundColor: getColorClass(punto.color),
-                  opacity: puntoActivo === punto.id ? 1 : 0.7
+                  backgroundColor: getColorClass(punto.color)
                 }}
                 onClick={() => handlePuntoClick(punto)}
                 title={punto.nombre}

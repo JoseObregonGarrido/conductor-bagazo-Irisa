@@ -1,26 +1,47 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { visualizer } from 'rollup-plugin-visualizer'
+import viteCompression from 'vite-plugin-compression'
 
-// Configuración de Vite para el proyecto React
+// Configuración de Vite optimizada
 export default defineConfig({
-    // Plugins usados por Vite (aquí React)
-    plugins: [react()],
-
-    // Opciones del servidor de desarrollo
+    plugins: [
+        react(),
+        // 1. Crea un gráfico visual del peso de los archivos al hacer build
+        visualizer({
+            open: true,       // Abre el reporte automáticamente en el navegador
+            gzipSize: true,   // Muestra el tamaño comprimido en Gzip
+            brotliSize: true, // Muestra el tamaño comprimido en Brotli
+        }),
+        // 2. Comprime los archivos finales para reducir el "Transfer Size"
+        viteCompression({
+            algorithm: 'brotliCompress', // Usamos Brotli que comprime más que Gzip
+        })
+    ],
     server: {
-        // Puerto en el que se sirve la app durante el desarrollo
         port: 5173,
-        // Si true y el puerto está ocupado, Vite fallará en lugar de buscar otro
         strictPort: false,
-        // Abre el navegador automáticamente cuando se inicia el servidor
         open: true
     },
-
-    // Opciones de construcción para producción
     build: {
-        // Carpeta de salida donde se genera el bundle
         outDir: 'dist',
-        // Generar o no sourcemaps (útil para depuración en producción)
-        sourcemap: false
+        sourcemap: false,
+        // Subimos la alerta de tamaño porque Three.js es pesado por naturaleza
+        chunkSizeWarningLimit: 1600, 
+        rollupOptions: {
+            output: {
+                // 3. Estrategia manual para separar librerías (Code Splitting)
+                manualChunks(id) {
+                    // Separa Three.js en un archivo aparte
+                    if (id.includes('node_modules/three')) {
+                        return 'vendor-three';
+                    }
+                    // Separa React en un archivo aparte
+                    if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+                        return 'vendor-react';
+                    }
+                }
+            }
+        }
     }
 })
