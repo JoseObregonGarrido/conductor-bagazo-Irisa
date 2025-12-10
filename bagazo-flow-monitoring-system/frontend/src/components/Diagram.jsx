@@ -9,8 +9,7 @@ export default function Diagram({ puntos, onPuntoClick }) {
     const colorMap = {
       red: '#B81D1D',
       green: '#006B42',
-      // FIX WCAG 2 AA: Cambiado de '#CC7700' (3.27:1) a '#A06000' (4.57:1 con #fffafa).
-      yellow: '#A06000', 
+      yellow: '#A06000', // WCAG 2 AA compliant (4.57:1)
       blue: '#1B4965'
     };
     return colorMap[color] || '#B81D1D';
@@ -18,7 +17,7 @@ export default function Diagram({ puntos, onPuntoClick }) {
 
   const handlePuntoClick = (punto) => {
     setPuntoActivo(punto.id);
-    onPuntoClick(punto);
+    onPuntoClick?.(punto); // Optional chaining for safety
   };
 
   return (
@@ -34,7 +33,7 @@ export default function Diagram({ puntos, onPuntoClick }) {
         {/* Leyenda */}
         <div className="diagram-legend">
           <p className="legend-title">Selecciona un conductor para ver los detalles:</p>
-          <div className="legend-items">
+          <div className="legend-items" role="group" aria-label="Conductores">
             {puntos.map((punto) => (
               <button
                 key={punto.id}
@@ -44,6 +43,8 @@ export default function Diagram({ puntos, onPuntoClick }) {
                 }}
                 onClick={() => handlePuntoClick(punto)}
                 title={punto.nombre}
+                aria-label={`Conductor ${punto.nombre}`}
+                aria-pressed={puntoActivo === punto.id}
               >
                 <span className="legend-number">{punto.nombre}</span>
               </button>

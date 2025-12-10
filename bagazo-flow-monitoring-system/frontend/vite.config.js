@@ -9,7 +9,7 @@ export default defineConfig({
         react(),
         // 1. Crea un gráfico visual del peso de los archivos al hacer build
         visualizer({
-            open: true,       // Abre el reporte automáticamente en el navegador
+            open: false,       // Abre el reporte automáticamente en el navegador
             gzipSize: true,   // Muestra el tamaño comprimido en Gzip
             brotliSize: true, // Muestra el tamaño comprimido en Brotli
         }),

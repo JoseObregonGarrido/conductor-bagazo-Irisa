@@ -6,6 +6,8 @@
 
 .info-panel.animated {
   animation: slideIn 1.6s ease;
+  /* Optimización: avisar al navegador qué propiedades cambiarán */
+  will-change: transform, opacity;
 }
 
 @keyframes slideIn {
@@ -28,6 +30,8 @@
   text-align: center;
   color: var(--color-gray-light);
   animation: fadeIn 0.3s ease-out;
+  /* Optimización: avisar al navegador */
+  will-change: opacity;
 }
 
 @keyframes fadeIn {
@@ -70,6 +74,8 @@
   font-size: 1.5rem;
   font-weight: bold;
   flex-shrink: 0;
+  /* Optimización: contención de layout */
+  contain: layout style paint;
 }
 
 .info-header-text {
@@ -86,6 +92,8 @@
   transition: all 0.2s ease;
   border-radius: 0.25rem;
   flex-shrink: 0;
+  /* Optimización: solo transform y color cambiarán */
+  will-change: transform;
 }
 
 .close-button:hover {
@@ -138,6 +146,8 @@
   background-color: var(--color-gray-darker);
   border-radius: 0.375rem;
   border-left: 3px solid var(--color-success);
+  /* Optimización: contención de layout */
+  contain: layout style paint;
 }
 
 .label {
@@ -178,6 +188,8 @@
   background-color: var(--color-gray-darker);
   border-radius: 0.375rem;
   margin-top: 0.5rem;
+  /* Optimización: contención */
+  contain: layout style paint;
 }
 
 .status-indicator {
@@ -201,6 +213,8 @@
   border-radius: 0.375rem;
   border-left: 3px solid var(--color-primary);
   margin: 0;
+  /* Optimización: contención */
+  contain: layout style paint;
 }
 
 @media (max-width: 768px) {

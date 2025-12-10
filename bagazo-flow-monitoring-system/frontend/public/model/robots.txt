@@ -1,0 +1,13 @@
+# robots.txt para Conductores de Bagazo
+
+User-agent: *
+Allow: /
+
+# Bloquear recursos innecesarios (opcional)
+Disallow: /api/
+Disallow: /*.js$
+Disallow: /*.css$
+Disallow: /assets/
+
+# Sitemap (cuando lo tengas)
+# Sitemap: https://tu-dominio.com/sitemap.xml

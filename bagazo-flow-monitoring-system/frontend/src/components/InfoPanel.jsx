@@ -4,6 +4,17 @@ import '../styles/InfoPanel.css';
 export default function InfoPanel({ punto, onClose }) {
   const [mostrarAnimacion, setMostrarAnimacion] = useState(false);
 
+  // Función para convertir nombres de color a códigos hexadecimales
+  const getColorClass = (color) => {
+    const colorMap = {
+      red: '#B81D1D',
+      green: '#006B42',
+      yellow: '#A06000',  // Amarillo naranja (igual que la leyenda)
+      blue: '#1B4965'
+    };
+    return colorMap[color] || '#B81D1D';
+  };
+
   useEffect(() => {
     if (punto) {
       setMostrarAnimacion(false);
@@ -27,7 +38,7 @@ export default function InfoPanel({ punto, onClose }) {
   return (
     <div className={`info-panel ${mostrarAnimacion ? 'animated' : ''}`}>
       <div className="info-header">
-        <div className="punto-badge" style={{ backgroundColor: punto.color }}>
+        <div className="punto-badge" style={{ backgroundColor: getColorClass(punto.color) }}>
           {punto.nombre}
         </div>
         <button className="close-button" onClick={onClose} title="Cerrar">

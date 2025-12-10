@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'; // FIX: Sintaxis de importación corregida
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -11,12 +11,9 @@ export default function Model3D() {
     const cameraRef = useRef(null);
     const rendererRef = useRef(null);
     const controlsRef = useRef(null);
-    
-    // Almacenamos el ID del bucle de animación para poder cancelarlo.
     const animationFrameIdRef = useRef(null);
-    
-    // Almacenamos una referencia al modelo cargado para limpieza
-    const modelRef = useRef(null); 
+    const modelRef = useRef(null);
+    const resizeTimeoutRef = useRef(null); // Para debounce del resize
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -43,7 +40,7 @@ export default function Model3D() {
         containerRef.current.appendChild(renderer.domElement);
         rendererRef.current = renderer;
 
-        // Luces y Controles
+        // Luces
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
         scene.add(ambientLight);
 
@@ -51,6 +48,7 @@ export default function Model3D() {
         directionalLight.position.set(5, 5, 5);
         scene.add(directionalLight);
 
+        // Controles
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
@@ -64,10 +62,7 @@ export default function Model3D() {
         // --- 2. Carga del Modelo con DRACO ---
         const loader = new GLTFLoader();
         const dracoLoader = new DRACOLoader();
-        
-        // CORRECCIÓN: Usar la RUTA DE LA CARPETA de los decodificadores (no la ruta completa del GLB)
-        dracoLoader.setDecoderPath('/draco-gltf/'); 
-        
+        dracoLoader.setDecoderPath('/draco-gltf/');
         loader.setDRACOLoader(dracoLoader);
 
         loader.load(
@@ -119,7 +114,7 @@ export default function Model3D() {
                 renderer.render(scene, camera);
             }
         };
-        animate();
+        animate(performance.now());
 
         // --- 4. Resize con Debounce (OPTIMIZACIÓN CLAVE) ---
         const handleResize = () => {
@@ -144,9 +139,10 @@ export default function Model3D() {
                 }
             }, 150);
         };
-        window.addEventListener('resize', handleResize);
 
-        // --- 5. FUNCIÓN DE LIMPIEZA (CLEANUP) COMPLETA ---
+        window.addEventListener('resize', handleResize, { passive: true });
+
+        // --- 5. CLEANUP COMPLETO ---
         return () => {
             // Detener animación
             if (animationFrameIdRef.current) {
@@ -196,8 +192,6 @@ export default function Model3D() {
             if (containerRef.current && rendererRef.current?.domElement?.parentNode === containerRef.current) {
                 containerRef.current.removeChild(rendererRef.current.domElement);
             }
-            
-            // FIX: dracoLoader.dispose() ELIMINADO (Resuelve ReferenceError)
         };
     }, []);
 

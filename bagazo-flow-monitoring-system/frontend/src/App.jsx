@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/Header.jsx';
 import Diagram from './components/Diagram.jsx';
 import InfoPanel from './components/InfoPanel.jsx';
-import Footer from "./components/footer.jsx";
+import Footer from "./components/Footer.jsx";
 import { obtenerPuntos, verificarBackend } from './services/api.js';
 import './App.css';
+// import { FunctionOverloadingNode } from 'three/webgpu'; // Esto no se usa y puede causar errores
+
+// 1. Carga diferida (Lazy Load) del componente Diagram
+// Esto aísla el código pesado de Three.js y GLTFLoader en un chunk separado.
+const Diagram = React.lazy(() => import('./components/Diagram.jsx')); 
 
 export default function App() { // ÚNICA FUNCIÓN EXPORTADA
   const [puntos, setPuntos] = useState([]);
@@ -13,13 +18,21 @@ export default function App() { // ÚNICA FUNCIÓN EXPORTADA
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Implementamos una lógica de reintento con backoff (aunque simple)
-    const cargarDatos = async (retries = 3) => {
-      // ... (Tu lógica de carga de datos y reintentos, que está correcta) ...
-      // (Mantenemos la lógica de reintento tal como la tienes, solo enfocándonos en la estructura)
+    const cargarDatos = async () => {
+      try {
+        await verificarBackend();
+        const datos = await obtenerPuntos();
+        setPuntos(datos);
+        setError(null);
+      } catch (err) {
+        setError('No se pudo conectar con el backend. Asegúrate de que esté ejecutándose en el puerto 5000.');
+      } finally {
+        setCargando(false);
+      }
     };
+
     cargarDatos();
-  }, [error]); 
+  }, []);
 
   const handlePuntoSeleccionado = (punto) => {
     setPuntoSeleccionado(punto);
@@ -29,17 +42,14 @@ export default function App() { // ÚNICA FUNCIÓN EXPORTADA
     setPuntoSeleccionado(null);
   };
 
-  // --- RENDERING BASADO EN ESTADO ---
-
   if (cargando) {
-    // ... (Tu bloque de cargando, que está correcto) ...
     return (
       <div className="app">
         <Header />
         <main className="main-content">
           <div className="loading">
             <div className="spinner"></div>
-            <p>Cargando datos iniciales...</p>
+            <p>Cargando datos...</p>
           </div>
         </main>
         <Footer />
@@ -48,15 +58,14 @@ export default function App() { // ÚNICA FUNCIÓN EXPORTADA
   }
 
   if (error) {
-  
     return (
       <div className="app">
         <Header />
         <main className="main-content">
           <div className="error">
-            <h2>Error de Conexión</h2>
+            <h2> Error de Conexión</h2>
             <p>{error}</p>
-            <button onClick={() => window.location.reload()} className="p-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition">
+            <button onClick={() => window.location.reload()}>
               Intentar de nuevo
             </button>
           </div>
@@ -93,3 +102,5 @@ export default function App() { // ÚNICA FUNCIÓN EXPORTADA
     </div>
   );
 }
+
+export default App;
