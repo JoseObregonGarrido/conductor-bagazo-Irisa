@@ -36,6 +36,7 @@
 }
 
 .info-section {
+  min-height: 70vh;
   background-color: #1e293b;
   border-radius: 0.5rem;
   padding: 0.75rem;
@@ -129,6 +130,10 @@
   .content-grid {
     grid-template-columns: 1fr;
     gap: 0.5rem;
+  }
+
+  .info-section{
+    min-height: 30rem;
   }
   /* ... (el resto de tus media queries) ... */
 }
