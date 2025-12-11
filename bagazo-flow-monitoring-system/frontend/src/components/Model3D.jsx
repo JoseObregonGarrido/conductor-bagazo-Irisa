@@ -28,13 +28,18 @@ export default function Model3D() {
 
         const width = containerRef.current.clientWidth;
         const height = containerRef.current.clientHeight;
-        const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-        camera.position.set(0, 2, 3);
+        const camera = new THREE.PerspectiveCamera(58, width / height, 0.1, 1000); // FOV 58
+        camera.position.set(1, 8, 14); // Posición inicial más alejada
         cameraRef.current = camera;
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        const renderer = new THREE.WebGLRenderer({ 
+            antialias: true,
+            powerPreference: 'high-performance', // Optimización GPU
+            stencil: false, // Deshabilitar si no lo usas
+            depth: true
+        });
         renderer.setSize(width, height);
-        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limitar a 2x
         containerRef.current.appendChild(renderer.domElement);
         rendererRef.current = renderer;
 
@@ -51,6 +56,9 @@ export default function Model3D() {
         controls.dampingFactor = 0.05;
         controls.autoRotate = true;
         controls.autoRotateSpeed = 2;
+        controls.maxPolarAngle = Math.PI / 1.5; // Limitar rotación vertical
+        controls.minDistance = 2; // Limitar zoom
+        controls.maxDistance = 10;
         controlsRef.current = controls;
 
         // --- 2. Carga del Modelo con DRACO ---
@@ -62,78 +70,131 @@ export default function Model3D() {
         
         loader.setDRACOLoader(dracoLoader);
 
-        loader.load('/model/modelo-3d-comprimido.glb', (gltf) => {
-            const model = gltf.scene;
-            model.scale.set(1.15, 1.15, 1.15);
-            scene.add(model);
-            modelRef.current = model; 
-            
-            // Ajustar cámara y target
-            const box = new THREE.Box3().setFromObject(model);
-            const center = box.getCenter(new THREE.Vector3());
-            const size = box.getSize(new THREE.Vector3());
-            const maxDim = Math.max(size.x, size.y, size.z);
-            const fov = camera.fov * (Math.PI / 180);
-            let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-            cameraZ *= 1.12;
+        loader.load(
+            '/model/modelo-3d-comprimido.glb',
+            (gltf) => {
+                const model = gltf.scene;
+                model.scale.set(1.15, 1.15, 1.15);
+                scene.add(model);
+                modelRef.current = model;
 
-            camera.position.z = cameraZ;
-            camera.position.x = center.x;
-            camera.position.y = center.y + maxDim * 0.18;
-            camera.lookAt(center);
-            controls.target.copy(center);
-            controls.update();
-        });
+                // Ajustar cámara
+                const box = new THREE.Box3().setFromObject(model);
+                const center = box.getCenter(new THREE.Vector3());
+                const size = box.getSize(new THREE.Vector3());
+                const maxDim = Math.max(size.x, size.y, size.z);
+                const fov = camera.fov * (Math.PI / 180);
+                let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+                cameraZ *= 1.12;
 
-        // --- 3. Bucle de Animación y Renderizado ---
-        const animate = () => {
-            animationFrameIdRef.current = requestAnimationFrame(animate); // Guarda el ID
-            controls.update();
-            renderer.render(scene, camera);
+                camera.position.z = cameraZ;
+                camera.position.x = center.x;
+                camera.position.y = center.y + maxDim * 0.18;
+                camera.lookAt(center);
+                controls.target.copy(center);
+                controls.update();
+            },
+            undefined,
+            (error) => {
+                console.error('Error al cargar el modelo 3D:', error);
+            }
+        );
+
+        // --- 3. Bucle de Animación Optimizado ---
+        let lastTime = performance.now();
+        const targetFPS = 60;
+        const frameTime = 1000 / targetFPS;
+
+        const animate = (currentTime) => {
+            animationFrameIdRef.current = requestAnimationFrame(animate);
+
+            // Limitar a 60 FPS para evitar sobrecarga
+            const deltaTime = currentTime - lastTime;
+            if (deltaTime < frameTime) return;
+
+            lastTime = currentTime - (deltaTime % frameTime);
+
+            // Solo renderizar si hay cambios
+            if (controls.update()) {
+                renderer.render(scene, camera);
+            }
         };
         animate();
 
-        // --- 4. Manejo de Resize (El Event Listener de la fuga) ---
+        // --- 4. Resize con Debounce (OPTIMIZACIÓN CLAVE) ---
         const handleResize = () => {
-            if (!containerRef.current) return;
-            const newWidth = containerRef.current.clientWidth;
-            const newHeight = containerRef.current.clientHeight;
-            camera.aspect = newWidth / newHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(newWidth, newHeight);
+            // Cancelar timeout anterior
+            if (resizeTimeoutRef.current) {
+                clearTimeout(resizeTimeoutRef.current);
+            }
+
+            // Esperar 150ms después del último resize
+            resizeTimeoutRef.current = setTimeout(() => {
+                if (!containerRef.current) return;
+
+                // Leer dimensiones una sola vez (evita forced reflow)
+                const newWidth = containerRef.current.clientWidth;
+                const newHeight = containerRef.current.clientHeight;
+
+                // Actualizar solo si cambió significativamente
+                if (Math.abs(camera.aspect - newWidth / newHeight) > 0.01) {
+                    camera.aspect = newWidth / newHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(newWidth, newHeight, false); // false = no update style
+                }
+            }, 150);
         };
         window.addEventListener('resize', handleResize);
 
         // --- 5. FUNCIÓN DE LIMPIEZA (CLEANUP) COMPLETA ---
         return () => {
-            // A. Detener el bucle de animación (Resuelve picos amarillos inactivos)
+            // Detener animación
             if (animationFrameIdRef.current) {
                 cancelAnimationFrame(animationFrameIdRef.current);
             }
-            
-            // B. Remover el Event Listener (Resuelve la fuga de EventListener)
+
+            // Limpiar timeout de resize
+            if (resizeTimeoutRef.current) {
+                clearTimeout(resizeTimeoutRef.current);
+            }
+
+            // Remover event listener
             window.removeEventListener('resize', handleResize);
 
-            // C. Limpiar recursos de Three.js (Resuelve fugas de (system)/Memory/GPU)
-            scene.traverse(object => {
-                if (object.isMesh) {
-                    if (object.geometry) object.geometry.dispose();
-                    if (object.material) {
-                        const materials = Array.isArray(object.material) ? object.material : [object.material];
-                        materials.forEach(material => {
-                            if (material.map) material.map.dispose();
-                            material.dispose();
-                        });
+            // Limpiar Three.js
+            if (sceneRef.current) {
+                sceneRef.current.traverse(object => {
+                    if (object.isMesh) {
+                        if (object.geometry) object.geometry.dispose();
+                        if (object.material) {
+                            const materials = Array.isArray(object.material) 
+                                ? object.material 
+                                : [object.material];
+                            materials.forEach(material => {
+                                if (material.map) material.map.dispose();
+                                if (material.normalMap) material.normalMap.dispose();
+                                if (material.roughnessMap) material.roughnessMap.dispose();
+                                if (material.metalnessMap) material.metalnessMap.dispose();
+                                material.dispose();
+                            });
+                        }
                     }
-                }
-            });
-            
-            // D. Disponer del Renderer
-            renderer.dispose();
-            
-            // E. Limpiar el DOM
-            if (containerRef.current && renderer.domElement.parentNode === containerRef.current) {
-                containerRef.current.removeChild(renderer.domElement);
+                });
+            }
+
+            // Disponer renderer
+            if (rendererRef.current) {
+                rendererRef.current.dispose();
+            }
+
+            // Disponer controles
+            if (controlsRef.current) {
+                controlsRef.current.dispose();
+            }
+
+            // Limpiar DOM
+            if (containerRef.current && rendererRef.current?.domElement?.parentNode === containerRef.current) {
+                containerRef.current.removeChild(rendererRef.current.domElement);
             }
             
             // FIX: dracoLoader.dispose() ELIMINADO (Resuelve ReferenceError)

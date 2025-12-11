@@ -1,14 +1,10 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header.jsx';
+import Diagram from './components/Diagram.jsx';
 import InfoPanel from './components/InfoPanel.jsx';
 import Footer from "./components/footer.jsx";
 import { obtenerPuntos, verificarBackend } from './services/api.js';
 import './App.css';
-// import { FunctionOverloadingNode } from 'three/webgpu'; // Esto no se usa y puede causar errores
-
-// 1. Carga diferida (Lazy Load) del componente Diagram
-// Esto aísla el código pesado de Three.js y GLTFLoader en un chunk separado.
-const Diagram = React.lazy(() => import('./components/Diagram.jsx')); 
 
 export default function App() { // ÚNICA FUNCIÓN EXPORTADA
   const [puntos, setPuntos] = useState([]);
@@ -76,17 +72,14 @@ export default function App() { // ÚNICA FUNCIÓN EXPORTADA
       <main className="main-content">
         <div className="content-grid">
           <div className="diagram-section">
-            {/* 🎯 Aplicación correcta del Suspense y Lazy Loading */}
-            <Suspense fallback={<div className="loading-3d">Cargando la visualización 3D...</div>}>
-              {puntos.length > 0 ? (
-                <Diagram 
-                  puntos={puntos} 
-                  onPuntoClick={handlePuntoSeleccionado}
-                />
-              ) : (
-                <p className="no-data">No hay datos disponibles</p>
-              )}
-            </Suspense>
+            {puntos.length > 0 ? (
+              <Diagram 
+                puntos={puntos} 
+                onPuntoClick={handlePuntoSeleccionado}
+              />
+            ) : (
+              <p className="no-data">No hay datos disponibles</p>
+            )}
           </div>
           <div className="info-section">
             <InfoPanel 
