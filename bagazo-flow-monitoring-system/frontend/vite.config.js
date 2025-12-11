@@ -1,28 +1,29 @@
-// vite.config.js (Código FINAL y COMPLETO)
+// vite.config.js
 
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { visualizer } from 'rollup-plugin-visualizer'
 import viteCompression from 'vite-plugin-compression'
 
-// Configuración de Vite optimizada
 export default defineConfig({
-    // ==========================================================
-    // CORRECCIÓN DEL ROBOTS.TXT:
-    // Forzamos la configuración del directorio público
-    // para asegurar que robots.txt, favicon, etc., se copien a dist.
-    // ==========================================================
+    // La propiedad 'base: "./"' es crucial para usar rutas relativas 
+    // en los assets compilados. Esto asegura que la aplicación se cargue 
+    // correctamente desde cualquier subdirectorio del servidor, lo que 
+    // resuelve el problema de localización de archivos en el renderizado de Googlebot.
+    base: './', 
+    
+    // Directorio que se copia directamente a 'dist' (contiene robots.txt, favicon, etc.).
     publicDir: 'public',
     
     plugins: [
         react(),
-        // 1. Crea un gráfico visual del peso de los archivos al hacer build
+        // Genera un mapa visual del tamaño de los módulos.
         visualizer({
-            open: false,      // No abre el reporte automáticamente
+            open: false,
             gzipSize: true,   
             brotliSize: true, 
         }),
-        // 2. Comprime los archivos finales para reducir el "Transfer Size"
+        // Comprime los archivos finales usando Brotli para reducir el tamaño de transferencia.
         viteCompression({
             algorithm: 'brotliCompress', 
         })
@@ -35,17 +36,17 @@ export default defineConfig({
     build: {
         outDir: 'dist',
         sourcemap: false,
-        // Subimos la alerta de tamaño porque Three.js es pesado por naturaleza
+        // Incrementa el límite de advertencia por el tamaño inherente de Three.js.
         chunkSizeWarningLimit: 1600, 
         rollupOptions: {
             output: {
-                // 3. Estrategia manual para separar librerías (Code Splitting)
+                // Estrategia de separación de código (Code Splitting) para aislar librerías pesadas.
                 manualChunks(id) {
-                    // Separa Three.js en un archivo aparte
+                    // Separa Three.js.
                     if (id.includes('node_modules/three')) {
                         return 'vendor-three';
                     }
-                    // Separa React en un archivo aparte
+                    // Separa React y React-DOM.
                     if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
                         return 'vendor-react';
                     }
