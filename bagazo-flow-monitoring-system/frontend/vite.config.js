@@ -1,3 +1,5 @@
+// vite.config.js (Código FINAL y COMPLETO)
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -5,17 +7,24 @@ import viteCompression from 'vite-plugin-compression'
 
 // Configuración de Vite optimizada
 export default defineConfig({
+    // ==========================================================
+    // CORRECCIÓN DEL ROBOTS.TXT:
+    // Forzamos la configuración del directorio público
+    // para asegurar que robots.txt, favicon, etc., se copien a dist.
+    // ==========================================================
+    publicDir: 'public',
+    
     plugins: [
         react(),
         // 1. Crea un gráfico visual del peso de los archivos al hacer build
         visualizer({
-            open: false,       // Abre el reporte automáticamente en el navegador
-            gzipSize: true,   // Muestra el tamaño comprimido en Gzip
-            brotliSize: true, // Muestra el tamaño comprimido en Brotli
+            open: false,      // No abre el reporte automáticamente
+            gzipSize: true,   
+            brotliSize: true, 
         }),
         // 2. Comprime los archivos finales para reducir el "Transfer Size"
         viteCompression({
-            algorithm: 'brotliCompress', // Usamos Brotli que comprime más que Gzip
+            algorithm: 'brotliCompress', 
         })
     ],
     server: {

@@ -5,13 +5,8 @@ import InfoPanel from './components/InfoPanel.jsx';
 import Footer from "./components/Footer.jsx";
 import { obtenerPuntos, verificarBackend } from './services/api.js';
 import './App.css';
-// import { FunctionOverloadingNode } from 'three/webgpu'; // Esto no se usa y puede causar errores
 
-// 1. Carga diferida (Lazy Load) del componente Diagram
-// Esto aísla el código pesado de Three.js y GLTFLoader en un chunk separado.
-const Diagram = React.lazy(() => import('./components/Diagram.jsx')); 
-
-export default function App() { // ÚNICA FUNCIÓN EXPORTADA
+function App() {
   const [puntos, setPuntos] = useState([]);
   const [puntoSeleccionado, setPuntoSeleccionado] = useState(null);
   const [cargando, setCargando] = useState(true);
@@ -63,7 +58,7 @@ export default function App() { // ÚNICA FUNCIÓN EXPORTADA
         <Header />
         <main className="main-content">
           <div className="error">
-            <h2> Error de Conexión</h2>
+            <h2>⚠️ Error de Conexión</h2>
             <p>{error}</p>
             <button onClick={() => window.location.reload()}>
               Intentar de nuevo
