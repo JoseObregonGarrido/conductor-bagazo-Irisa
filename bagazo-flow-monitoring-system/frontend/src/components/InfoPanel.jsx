@@ -9,7 +9,7 @@ export default function InfoPanel({ punto, onClose }) {
     const colorMap = {
       red: '#B81D1D',
       green: '#006B42',
-      yellow: '#A06000',  // Amarillo naranja (igual que la leyenda)
+      yellow: '#A06000', // Amarillo naranja (igual que la leyenda)
       blue: '#1B4965'
     };
     return colorMap[color] || '#B81D1D';
@@ -46,15 +46,16 @@ export default function InfoPanel({ punto, onClose }) {
         </button>
       </div>
 
+      {/* 🛑 SECCIÓN CORREGIDA: Un solo contenedor 'info-content' para toda la información */}
       <div className="info-content">
-        <div className="info-section">
+        
+        <div className="info-section description-section">
+          {/* Descripción en su propio div o p para estilos */}
+          <h4>Descripción:</h4>
           <p className="info-description">{punto.descripcion}</p>
-        </div>
-      </div>
 
-      <div className="info-content">
-        <div className="info-section">
-          <p className="info-description">{punto.tipo}</p>
+          <h4>Tipo:</h4>
+          <p className="info-type">{punto.tipo}</p>
         </div>
       </div>
     </div>

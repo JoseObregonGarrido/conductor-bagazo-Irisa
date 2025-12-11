@@ -1,9 +1,11 @@
 .header {
   background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
   border-bottom: 2px solid #00A352;
-  padding: 1rem 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 1.25rem 0; /* Ajuste de padding */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); 
   min-height: 120px;
+  will-change: box-shadow;
+  contain: layout style paint;
 }
 
 .header-container {
@@ -13,122 +15,134 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem; 
 }
 
 .header-content {
   flex: 1;
+  min-width: 0; /* Evita desbordamiento del flex item */
 }
 
 .header-title {
-  font-size: 1.5rem;
+  font-size: 1.6rem; 
   font-weight: 700;
   color: #00A352;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.35rem; 
   letter-spacing: -0.5px;
+  /* Recorte de texto para evitar desbordamiento */
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
 }
 
 .header-subtitle {
-  font-size: 0.95rem;
+  font-size: 1rem; 
   color: #C0C0C0;
   font-weight: 400;
 }
 
 .header-info {
   display: flex;
-  gap: 0.75rem;
+  gap: 1rem; 
   align-items: center;
+  flex-shrink: 0; 
 }
 
 .badge {
   background-color: #00A352;
   color: #000000;
-  padding: 0.4rem 0.75rem;
-  border-radius: 0.375rem;
-  font-size: 0.75rem;
-  font-weight: 600;
+  padding: 0.5rem 1rem; 
+  border-radius: 0.5rem; 
+  font-size: 0.8rem;
+  font-weight: 700; 
   white-space: nowrap;
+  transition: transform 0.2s ease;
 }
 
 .badge-secondary {
   background-color: #C0C0C0;
-  color: #000000;
+  color: #1e293b; 
 }
 
+.badge:hover {
+    transform: translateY(-2px); 
+}
+
+/* --- Media Queries del Header --- */
+
 @media (max-width: 768px) {
+    .header {
+        padding: 1rem 0;
+    }
   .header-container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-    padding: 0 1rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem; 
+      padding: 0 1.5rem; 
+      min-height: unset; 
   }
+    .header-content {
+        width: 100%; 
+    }
 
   .header-title {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
+    /* Permite salto de línea en móvil */
+    white-space: normal; 
+    overflow: visible;
+    text-overflow: clip;
   }
 
   .header-subtitle {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
   }
 
   .header-info {
     width: 100%;
-    flex-direction: column;
+    flex-direction: row; 
+    justify-content: space-around;
+    gap: 0.5rem;
   }
 
   .badge {
-    width: 100%;
+    flex: 1; 
     text-align: center;
-    font-size: 0.7rem;
-    padding: 0.3rem 0.5rem;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.5rem;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 500px) {
+    /* Apila los badges en teléfonos más pequeños */
+    .header-info {
+        flex-direction: column; 
+    }
+    .badge {
+        width: 100%;
+        max-width: 200px; 
+        margin: 0 auto;
+    }
+    .header-title {
+        font-size: 1.1rem;
+    }
+    .header-subtitle {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 360px) {
   .header {
     padding: 0.75rem 0;
   }
-
   .header-container {
     padding: 0 0.75rem;
-    gap: 0.4rem;
+    gap: 0.5rem;
   }
-
   .header-title {
     font-size: 1rem;
   }
-
   .header-subtitle {
     font-size: 0.7rem;
-  }
-
-  .badge {
-    font-size: 0.65rem;
-    padding: 0.25rem 0.4rem;
-  }
-}
-
-@media (max-width: 411px) {
-  .header {
-    padding: 0.5rem 0;
-  }
-
-  .header-container {
-    padding: 0 0.5rem;
-    gap: 0.3rem;
-  }
-
-  .header-title {
-    font-size: 0.9rem;
-  }
-
-  .header-subtitle {
-    font-size: 0.65rem;
-  }
-
-  .badge {
-    font-size: 0.6rem;
-    padding: 0.2rem 0.3rem;
   }
 }
 

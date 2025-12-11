@@ -75,7 +75,7 @@ export default function Model3D() {
         controls.autoRotateSpeed = 2;
         controls.maxPolarAngle = Math.PI / 1.8;
         controls.minDistance = 3; 
-        controls.maxDistance = 50; 
+        controls.maxDistance = 60;  // Aumentado para permitir más alejamiento manual
         controlsRef.current = controls;
 
         // --- 2. Carga del Modelo con DRACO ---
@@ -99,7 +99,7 @@ export default function Model3D() {
                 const maxDim = Math.max(size.x, size.y, size.z);
                 const fov = camera.fov * (Math.PI / 180);
                 let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-                cameraZ *= 2.5; 
+                cameraZ *= 3.0;  // Aumentado de 2.5 a 3.0 para zoom más alejado y capturar todo el modelo
 
                 camera.position.z = cameraZ;
                 camera.position.x = center.x;
