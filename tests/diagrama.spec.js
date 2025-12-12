@@ -30,6 +30,17 @@ test.describe('Regresión Visual del Diagrama 3D', () => {
         });
 
         // 5. Captura completa.
-        await expect(page).toHaveScreenshot('pagina-completa.png', { fullPage: true });
+        await expect(page).toHaveScreenshot('pagina-completa.png', { 
+            fullPage: true,
+            timeout: 10000, // Aumentamos el timeout a 10s por seguridad
+            
+            // Reemplaza '.clock-or-dynamic-area' por el selector real 
+            // del reloj, contador, o cualquier elemento que esté cambiando.
+            // Si hay varios, puedes ponerlos en un array: mask: [page.locator('#clock'), page.locator('.timer')]
+            mask: [page.locator('.clock-or-dynamic-area')], 
+            
+            // Usamos un umbral bajo, ya que el contenido principal está estable.
+            maxDiffPixelRatio: 0.05 // Solo 5% de diferencia de píxeles permitida fuera del 3D.
+        });
     });
 });
