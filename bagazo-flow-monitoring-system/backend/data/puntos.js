@@ -9,7 +9,7 @@
   {
     "id": 2,
     "nombre": "CB2",
-    "descripcion":  "Distribuye el bagazo entre el CB5 que envía bagacillo a elaboración y el C6 que continúa el ciclo de alimentación de la caldera.",
+    "descripcion":  "Distribuye el bagazo entre el CB5 que envía bagacillo a elaboración y el CB6 que continúa el ciclo de alimentación de la caldera.",
     "color": "red",
     "tipo": "Distribuidor"
   },
