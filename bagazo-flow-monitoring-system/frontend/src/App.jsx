@@ -60,7 +60,7 @@ function App() {
         <Header />
         <main className="main-content">
           <div className="error">
-            <h2>⚠️ Error de Conexión</h2>
+            <h2>Error de Conexión</h2>
             <p>{error}</p>
             <button onClick={() => window.location.reload()}>
               Intentar de nuevo

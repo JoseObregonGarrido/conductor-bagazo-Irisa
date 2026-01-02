@@ -28,11 +28,11 @@ try {
     html = html.replace(originalLinkTag, replacement);
     
     fs.writeFileSync(indexPath, html, 'utf-8');
-    console.log(`✅ CSS deferral aplicado al archivo: ${cssPath}`);
+    console.log(` CSS deferral aplicado al archivo: ${cssPath}`);
 
   } else {
     // Si no lo encuentra, intentamos con un patrón más simple por si el formato ha cambiado
-    console.log('⚠️ No se encontró la etiqueta <link rel="stylesheet" crossorigin...>. Verificando formato simple...');
+    console.log(' No se encontró la etiqueta <link rel="stylesheet" crossorigin...>. Verificando formato simple...');
     
     const simpleCssRegex = /<link\s+rel="stylesheet"\s+href="([^"]+\.css)">/;
     const simpleMatch = html.match(simpleCssRegex);
@@ -46,11 +46,11 @@ try {
       `.trim();
       html = html.replace(originalLinkTag, simpleReplacement);
       fs.writeFileSync(indexPath, html, 'utf-8');
-      console.log(`✅ CSS deferral aplicado (Formato Simple) al archivo: ${cssPath}`);
+      console.log(` CSS deferral aplicado (Formato Simple) al archivo: ${cssPath}`);
     } else {
-      console.log('❌ Fallo al aplicar CSS deferral. No se encontró ninguna etiqueta CSS compatible.');
+      console.log(' Fallo al aplicar CSS deferral. No se encontró ninguna etiqueta CSS compatible.');
     }
   }
 } catch (error) {
-  console.error('❌ Error al modificar el index.html:', error);
+  console.error(' Error al modificar el index.html:', error);
 }

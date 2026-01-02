@@ -30,7 +30,7 @@ export default function InfoPanel({ punto, onClose }) {
   }
 
   return (
-    /* 🛑 CLAVE DE OPTIMIZACIÓN: Usar 'key' fuerza a React a recrear el DOM, 
+    /*  CLAVE DE OPTIMIZACIÓN: Usar 'key' fuerza a React a recrear el DOM, 
        reiniciando la animación CSS sin necesidad de setTimeout. */
     <div className="info-panel animated" key={punto.id}> 
       <div className="info-header">

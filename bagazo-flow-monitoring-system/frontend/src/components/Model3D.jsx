@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 // =====================================================================================
-// CAMBIO CRÍTICO: Importaciones específicas para Tree Shaking (Reducción de tamaño 117KiB)
+// CAMBIO: Importaciones específicas para Tree Shaking (Reducción de tamaño 117KiB)
 // =====================================================================================
 import {
     Scene,
