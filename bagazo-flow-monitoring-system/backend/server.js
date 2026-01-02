@@ -18,19 +18,27 @@ const frontendDistPath = path.join(path.resolve(), '..', 'frontend', 'dist'); //
 
 // Middleware
 app.use(express.json());
+// Logging simple de peticiones (útil para evidencias)
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.originalUrl}`);
+  next();
+});
 
-// >>> FIX CORS OMITIDO POR BREVEDAD, DEJAR TU CÓDIGO AQUÍ <<<
-// ... (Tu código de app.use(cors({...})) debe ir aquí) ...
+// CORS (orígenes permitidos configurables)
+app.use(cors({ origin: CORS_ORIGIN }));
+
+// Parse URL-encoded (si se reciben formularios)
+app.use(express.urlencoded({ extended: true }));
 
 // ==============================================
-// 🎯 SERVIR EL FRONTEND Y BROTLI (PASO CLAVE)
+//  SERVIR EL FRONTEND Y BROTLI (PASO CLAVE)
 // ==============================================
 
 app.use('/', expressStaticGzip(frontendDistPath, {
-  enableBrotli: true, // Habilita la búsqueda de archivos .br
-  index: 'index.html', // Archivo de inicio del frontend
+  enableBrotli: true,
+  index: 'index.html',
   serveStatic: {
-    maxAge: '365d' // Política de caché para los archivos estáticos
+    maxAge: '365d'
   }
 }));
 // 
@@ -47,17 +55,21 @@ app.get('/api/health', (req, res) => {
 // FALLBACK PARA ENRUTAMIENTO DEL CLIENTE (React Router)
 // ==============================================
 // Cualquier ruta que no sea un archivo estático o /api/* debe servir el index.html
-app.get('*', (req, res) => {
-  if (req.originalUrl.startsWith('/api/')) return; // Ya manejado por el 404 abajo
+// Rutas no encontradas para API -> responder JSON 404
+app.use('/api', (req, res) => {
+  res.status(404).json({ error: 'Ruta API no encontrada' });
+});
 
-  // Servir el index.html para que React Router maneje la ruta
+// Fallback: servir index.html para rutas del cliente (SPA)
+app.get('*', (req, res) => {
   res.sendFile(path.join(frontendDistPath, 'index.html'));
 });
 
-
-// Manejo de errores 404 para la API
-app.use((req, res) => {
-  res.status(404).json({ error: 'Ruta no encontrada' });
+// Middleware de manejo de errores (último middleware)
+app.use((err, req, res, next) => {
+  console.error('ERROR:', err);
+  const status = err.status || 500;
+  res.status(status).json({ error: err.message || 'Error interno del servidor' });
 });
 
 // Iniciar servidor
