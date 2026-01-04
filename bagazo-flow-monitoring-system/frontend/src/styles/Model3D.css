@@ -1,16 +1,15 @@
 .model3d-container {
   width: 100%;
-  /* Cambiado de 100% a 600px para asegurar altura en el contenedor padre */
-  height: 600px; 
+  /* Alto ideal para mantener perspectiva sin deformar el zoom */
+  height: 500px; 
   display: flex;
   flex-direction: column;
   position: relative;
-  background-color: #0f172a; /* Color de fondo oscuro para evitar destellos blancos */
+  background-color: #0f172a;
 }
 
 .model3d-viewer {
   width: 100%;
-  /* flex-grow asegura que el visor llene todo el espacio disponible del container */
   flex-grow: 1; 
   height: 100%;
   border-radius: 0.5rem;
@@ -33,7 +32,7 @@
   border-radius: 0.25rem;
   font-size: 0.85rem;
   z-index: 10;
-  pointer-events: none; /* Evita que el cuadro de info interfiera con el mouse en el 3D */
+  pointer-events: none;
 }
 
 .model3d-info p {
@@ -41,21 +40,11 @@
 }
 
 @media (max-width: 768px) {
-  .model3d-container {
-    height: 400px; /* Altura más pequeña para tablets */
-  }
-  .model3d-info {
-    font-size: 0.7rem;
-    padding: 0.4rem 0.6rem;
-  }
+  .model3d-container { height: 400px; }
+  .model3d-info { font-size: 0.7rem; }
 }
 
 @media (max-width: 640px) {
-  .model3d-container {
-    height: 300px; /* Altura más pequeña para celulares */
-  }
-  .model3d-info {
-    font-size: 0.65rem;
-    padding: 0.3rem 0.5rem;
-  }
+  .model3d-container { height: 350px; }
+  .model3d-info { font-size: 0.6rem; }
 }

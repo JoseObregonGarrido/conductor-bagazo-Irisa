@@ -1,7 +1,4 @@
 import { useEffect, useRef } from 'react';
-// =====================================================================================
-// CAMBIO: Importaciones específicas para Tree Shaking (Reducción de tamaño 117KiB)
-// =====================================================================================
 import {
     Scene,
     Color,
@@ -13,7 +10,6 @@ import {
     Vector3,
 } from 'three'; 
 
-// Loaders y Controls se importan por separado.
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'; 
@@ -27,27 +23,21 @@ export default function Model3D() {
     const controlsRef = useRef(null);
     const animationFrameIdRef = useRef(null);
     const modelRef = useRef(null);
-    const resizeTimeoutRef = useRef(null); // Para debounce del resize
+    const resizeTimeoutRef = useRef(null);
 
     useEffect(() => {
         if (!containerRef.current) return;
 
-        // --- 1. Inicialización ---
-        // Uso de clases importadas directamente: new Scene()
         const scene = new Scene();
         scene.background = new Color(0x0f172a);
         sceneRef.current = scene;
 
-        // Lectura de dimensiones (debe ir ANTES de cualquier manipulación de DOM/Renderer)
         const width = containerRef.current.clientWidth;
         const height = containerRef.current.clientHeight;
         
-        // Uso de clases importadas directamente
         const camera = new PerspectiveCamera(60, width / height, 0.1, 1000); 
-        camera.position.set(0, 6, 10); 
         cameraRef.current = camera;
 
-        // Uso de clases importadas directamente
         const renderer = new WebGLRenderer({ 
             antialias: true,
             powerPreference: 'high-performance', 
@@ -59,7 +49,6 @@ export default function Model3D() {
         containerRef.current.appendChild(renderer.domElement);
         rendererRef.current = renderer;
 
-        // Luces
         const ambientLight = new AmbientLight(0xffffff, 0.8);
         scene.add(ambientLight);
 
@@ -67,7 +56,6 @@ export default function Model3D() {
         directionalLight.position.set(5, 5, 5);
         scene.add(directionalLight);
 
-        // Controles
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
@@ -75,10 +63,9 @@ export default function Model3D() {
         controls.autoRotateSpeed = 2;
         controls.maxPolarAngle = Math.PI / 1.8;
         controls.minDistance = 3; 
-        controls.maxDistance = 60;  // Aumentado para permitir más alejamiento manual
+        controls.maxDistance = 80; 
         controlsRef.current = controls;
 
-        // --- 2. Carga del Modelo con DRACO ---
         const loader = new GLTFLoader();
         const dracoLoader = new DRACOLoader();
         dracoLoader.setDecoderPath('/draco-gltf/');
@@ -92,18 +79,21 @@ export default function Model3D() {
                 scene.add(model);
                 modelRef.current = model;
 
-                // Ajustar cámara (Uso de clases importadas directamente)
                 const box = new Box3().setFromObject(model);
                 const center = box.getCenter(new Vector3());
                 const size = box.getSize(new Vector3());
                 const maxDim = Math.max(size.x, size.y, size.z);
                 const fov = camera.fov * (Math.PI / 180);
+                
+                // CAMBIO: Multiplicador aumentado a 4.5 para alejar la vista
                 let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-                cameraZ *= 3.0;  // Aumentado de 2.5 a 3.0 para zoom más alejado y capturar todo el modelo
+                cameraZ *= 4.5; 
 
                 camera.position.z = cameraZ;
                 camera.position.x = center.x;
-                camera.position.y = center.y + maxDim * 0.5; 
+                // CAMBIO: Elevación en Y aumentada para mejor perspectiva
+                camera.position.y = center.y + maxDim * 0.8; 
+                
                 camera.lookAt(center);
                 controls.target.copy(center);
                 controls.update();
@@ -114,91 +104,44 @@ export default function Model3D() {
             }
         );
 
-        // --- 3. Bucle de Animación Optimizado ---
-        let lastTime = performance.now();
-        const targetFPS = 60;
-        const frameTime = 1000 / targetFPS;
-
         const animate = (currentTime) => {
             animationFrameIdRef.current = requestAnimationFrame(animate);
-
-            const deltaTime = currentTime - lastTime;
-            if (deltaTime < frameTime) return;
-
-            lastTime = currentTime - (deltaTime % frameTime);
-
             if (controls.update()) {
                 renderer.render(scene, camera);
             }
         };
         animate(performance.now());
 
-        // --- 4. Resize con Debounce (OPTIMIZACIÓN CLAVE) ---
         const handleResize = () => {
-            if (resizeTimeoutRef.current) {
-                clearTimeout(resizeTimeoutRef.current);
-            }
-
+            if (resizeTimeoutRef.current) clearTimeout(resizeTimeoutRef.current);
             resizeTimeoutRef.current = setTimeout(() => {
                 if (!containerRef.current) return;
-
                 const newWidth = containerRef.current.clientWidth;
                 const newHeight = containerRef.current.clientHeight;
-
-                if (Math.abs(camera.aspect - newWidth / newHeight) > 0.01) {
-                    camera.aspect = newWidth / newHeight;
-                    camera.updateProjectionMatrix();
-                    // 'false' previene Forced Reflow
-                    renderer.setSize(newWidth, newHeight, false); 
-                }
+                camera.aspect = newWidth / newHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(newWidth, newHeight, false); 
             }, 150);
         };
 
         window.addEventListener('resize', handleResize, { passive: true });
 
-        // --- 5. CLEANUP COMPLETO ---
         return () => {
-            if (animationFrameIdRef.current) {
-                cancelAnimationFrame(animationFrameIdRef.current);
-            }
-
-            if (resizeTimeoutRef.current) {
-                clearTimeout(resizeTimeoutRef.current);
-            }
-
+            if (animationFrameIdRef.current) cancelAnimationFrame(animationFrameIdRef.current);
             window.removeEventListener('resize', handleResize);
-
             if (sceneRef.current) {
-                sceneRef.current.traverse(object => {
-                    if (object.isMesh) {
-                        if (object.geometry) object.geometry.dispose();
-                        if (object.material) {
-                            const materials = Array.isArray(object.material) 
-                                ? object.material 
-                                : [object.material];
-                            materials.forEach(material => {
-                                if (material.map) material.map.dispose();
-                                if (material.normalMap) material.normalMap.dispose();
-                                if (material.roughnessMap) material.roughnessMap.dispose();
-                                if (material.metalnessMap) material.metalnessMap.dispose();
-                                material.dispose();
-                            });
+                sceneRef.current.traverse(obj => {
+                    if (obj.isMesh) {
+                        if (obj.geometry) obj.geometry.dispose();
+                        if (obj.material) {
+                            const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+                            mats.forEach(m => m.dispose());
                         }
                     }
                 });
             }
-
-            if (rendererRef.current) {
-                rendererRef.current.dispose();
-            }
-
-            if (controlsRef.current) {
-                controlsRef.current.dispose();
-            }
-
-            if (containerRef.current && rendererRef.current?.domElement?.parentNode === containerRef.current) {
-                containerRef.current.removeChild(rendererRef.current.domElement);
-            }
+            if (rendererRef.current) rendererRef.current.dispose();
+            if (controlsRef.current) controlsRef.current.dispose();
         };
     }, []);
 
@@ -206,7 +149,7 @@ export default function Model3D() {
         <div className="model3d-container">
             <div ref={containerRef} className="model3d-viewer" />
             <div className="model3d-info">
-                <p>Usa el mouse para rotar o su pantalla táctil | Scroll para zoom o pellizcar para acercar/alejar</p>
+                <p>Usa el mouse para rotar | Scroll para zoom</p>
             </div>
         </div>
     );
