@@ -4,7 +4,7 @@
   "description": "Frontend React para Sistema de Monitoreo de Conductores de Bagazo",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint src",
@@ -36,8 +36,7 @@
     "vite-plugin-compression": "^0.5.1"
   },
   "engines": {
-    "node": ">=16.0.0",
+    "node": ">=20.0.0",
     "npm": ">=8.0.0"
   }
-
 }
