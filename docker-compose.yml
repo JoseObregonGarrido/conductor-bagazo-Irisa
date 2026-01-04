@@ -28,9 +28,9 @@ services:
       dockerfile: Dockerfile
     container_name: bagazo-frontend
     ports:
-      - "3000:5173" # Conecta tu puerto 3000 de Windows al 5173 de Vite en Docker
+      - "3000:3000" # Ahora coincide perfectamente con el puerto 3000 del Dockerfile
     environment:
-      - VITE_API_URL=http://localhost:5000
+      VITE_API_URL: http://localhost:5000
     depends_on:
       - backend
     restart: unless-stopped
