@@ -14,7 +14,8 @@ const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:5173';
 // --- Configuración de la Carpeta Frontend (Ruta absoluta) ---
 // Obtener el directorio actual del backend y apuntar a la carpeta 'dist' del frontend
 // NOTA: Esto asume que la carpeta 'dist' se genera en la raíz del monorepo
-const frontendDistPath = path.join(path.resolve(), '..', 'frontend', 'dist'); // AJUSTA ESTA RUTA SI ES NECESARIO
+// AJUSTE PARA DOCKER: Se usa path.resolve('dist') porque en el contenedor la carpeta está local
+const frontendDistPath = path.resolve('dist'); 
 
 // Middleware
 app.use(express.json());
@@ -62,7 +63,11 @@ app.use('/api', (req, res) => {
 
 // Fallback: servir index.html para rutas del cliente (SPA)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(frontendDistPath, 'index.html'));
+  res.sendFile(path.join(frontendDistPath, 'index.html'), (err) => {
+    if (err) {
+      res.status(404).send("Archivo index.html no encontrado en el contenedor");
+    }
+  });
 });
 
 // Middleware de manejo de errores (último middleware)
@@ -73,7 +78,8 @@ app.use((err, req, res, next) => {
 });
 
 // Iniciar servidor
-app.listen(PORT, () => {
-  console.log(`🚀 Backend ejecutándose en puerto ${PORT}`);
-  console.log(`🌐 Frontend servido desde: ${frontendDistPath}`);
+// AJUSTE PARA DOCKER: Se agrega '0.0.0.0' para permitir conexiones externas al contenedor
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(` Backend ejecutándose en puerto ${PORT}`);
+  console.log(` Frontend servido desde: ${frontendDistPath}`);
 });
