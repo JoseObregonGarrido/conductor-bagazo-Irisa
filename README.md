@@ -1,29 +1,34 @@
 # conductor-bagazo-Irisa
 
-Plataforma de monitoreo interactivo para conductores de bagazo en IRISA. Diagrama clickeable con parámetros en tiempo real.
+Plataforma de monitoreo interactivo para conductores de bagazo en IRISA. Diagrama clickeable con parámetros.
+
+# conductor-bagazo-Irisa
+
+Plataforma de monitoreo interactivo para conductores de bagazo en IRISA. Diagrama clickeable con parámetros.
 
 ## Contenido
 
-- `bagazo-flow-monitoring-system/backend` — API Express simple que sirve datos y rutas.
+- `bagazo-flow-monitoring-system/backend` — API Express que sirve datos y rutas.
 - `bagazo-flow-monitoring-system/frontend` — Frontend React + Vite que muestra el diagrama y paneles.
 - `tests/` — Scripts de Playwright para pruebas E2E y snapshots.
 
 ## Requisitos
 
-- Node.js >= 16
+- Node.js >= 20
 - npm >= 8
 - Git (opcional)
+- Docker & Docker Compose (opcional, recomendado para despliegues)
 
-## Instalación rápida
+## Instalación rápida (local)
 
-1. Clona el repositorio (si aún no lo tienes):
+1. Clona el repositorio:
 
 ```bash
 git clone <url-del-repo>
 cd conductor-bagazo-Irisa
 ```
 
-2. Instala dependencias para backend y frontend por separado:
+2. Instala dependencias (dos terminales o en paralelo):
 
 ```bash
 cd bagazo-flow-monitoring-system/backend
@@ -52,25 +57,39 @@ npm run dev
 
 El frontend por defecto usa Vite; abre la URL que imprima la consola (normalmente `http://localhost:5173`).
 
-## Construir y servir producción
+## Ejecutar con Docker Compose
+
+Este repositorio incluye un `docker-compose.yml` para levantar servicios juntos (si está configurado).
 
 ```bash
-# en frontend
+docker compose up --build
+```
+
+Parar y eliminar contenedores:
+
+```bash
+docker compose down
+```
+
+## Construir y servir producción (frontend)
+
+```bash
+cd bagazo-flow-monitoring-system/frontend
 npm run build
 npm run preview   # sirve la versión construida en modo preview
-
-# o usar el script de serve que usa `sirv` para servir `dist`
+# o
 npm run serve
 ```
 
 ## Tests E2E (Playwright)
 
-Hay pruebas de Playwright en la carpeta `tests/` y resultados de ejecuciones en `playwright-report/`.
+Las pruebas de Playwright están en la carpeta `tests/` y los reportes en `playwright-report/`.
+
+Desde la raíz (si Playwright está configurado en el `package.json` root):
 
 ```bash
-# desde la raíz si Playwright está instalado en el root package.json
 npm test
-# o usar el runner de Playwright directamente
+# o
 npx playwright test
 ```
 
@@ -86,18 +105,17 @@ npx playwright test
   - `public/` — recursos estáticos (modelos 3D, etc.)
   - `defer_css.js` — script post-build
 
-## Tareas sugeridas
+## Sugerencias y tareas futuras
 
-- Ejecutar localmente y verificar flujos (frontend + backend).
 - Añadir tests unitarios (Jest + React Testing Library) para `src/components`.
-- Dockerizar backend y frontend para despliegue sencillo.
-- Añadir CI (GitHub Actions) que instale dependencias y ejecute tests.
+- Añadir CI (GitHub Actions) que instale dependencias y ejecute tests y lint.
+- Mejorar la dockerización para despliegues (imágenes separadas para backend/frontend).
 
 ## Contribución
 
-1. Haz fork y un branch por feature.
+1. Haz fork y crea un branch por feature.
 2. Añade tests y documentación para cambios relevantes.
-3. Abre un Pull Request explicando los cambios.
+3. Abre un Pull Request describiendo los cambios.
 
 ## Licencia
 
