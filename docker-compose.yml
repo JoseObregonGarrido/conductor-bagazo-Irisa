@@ -11,6 +11,9 @@ services:
       NODE_ENV: production
       PORT: 5000
       CORS_ORIGIN: http://localhost:3000
+    # En producción, mueve variables sensibles a un archivo .env o a secretos de Docker.
+    # Ejemplo (descomentar y crear .env):
+    # env_file: ./bagazo-flow-monitoring-system/backend/.env
     volumes:
       - ./bagazo-flow-monitoring-system/backend/data:/app/data
     restart: unless-stopped
@@ -20,6 +23,12 @@ services:
       timeout: 10s
       retries: 3
       start_period: 10s
+    # Limit logging to avoid crecer sin control en producción
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   # Frontend
   frontend:
@@ -31,6 +40,8 @@ services:
       - "3000:3000" # Ahora coincide perfectamente con el puerto 3000 del Dockerfile
     environment:
       VITE_API_URL: http://localhost:5000
+    # En producción, preferir usar env_file o inyectar variables en runtime (no en la imagen)
+    # env_file: ./bagazo-flow-monitoring-system/frontend/.env
     depends_on:
       - backend
     restart: unless-stopped
@@ -40,7 +51,16 @@ services:
       timeout: 10s
       retries: 3
       start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 volumes:
   backend_data:
     driver: local
+# Notas de seguridad:
+# - Revisa las variables expuestas en `environment` antes de subir a producción.
+# - Evita exponer puertos innecesarios; usa un proxy/reverse-proxy y reglas de firewall.
+# - Para datos sensibles, considera usar `secrets` de Docker o un gestor externo.

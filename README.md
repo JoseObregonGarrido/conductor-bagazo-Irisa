@@ -71,6 +71,28 @@ Parar y eliminar contenedores:
 docker compose down
 ```
 
+### Recomendaciones de despliegue y seguridad
+
+- Considera agregar healthchecks (ya incluidos en `docker-compose.yml`) para mejorar la robustez y permitir a orquestadores detectar servicios caídos.
+- En producción, revisa la seguridad de las variables de entorno: evita incrustar secretos en `environment`. Usa `env_file`, `secrets` de Docker, o un gestor de secretos externo.
+- Reduce la exposición de puertos innecesarios; protege servicios detrás de un reverse-proxy (NGINX, Traefik) y reglas de firewall.
+
+Comandos útiles para monitoreo y depuración:
+
+```bash
+# Ver el estado de los servicios (puertos, estado, reinicios)
+docker compose ps
+
+# Ver logs en tiempo real (añade -f para "follow")
+docker compose logs -f frontend
+docker compose logs -f backend
+
+# Para ver logs de todos los servicios
+docker compose logs -f
+```
+
+Si quieres, puedo agregar un archivo `.env.example` y mostrar cómo usar `secrets` para los valores sensibles.
+
 ## Construir y servir producción (frontend)
 
 ```bash
