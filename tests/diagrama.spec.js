@@ -1,7 +1,7 @@
 // Archivo: tests/diagrama.spec.js (¡DEBE CONTENER ESTO AHORA!)
 import { test, expect } from '@playwright/test';
 
-const APP_URL = 'http://localhost:5000'; 
+const APP_URL = 'http://localhost:3000'; 
 
 test.describe('Regresión Visual del Diagrama 3D', () => {
 
