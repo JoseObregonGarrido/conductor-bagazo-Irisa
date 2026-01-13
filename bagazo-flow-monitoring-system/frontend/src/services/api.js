@@ -14,7 +14,7 @@ export const obtenerPuntos = async () => {
   }
 };
 
-// Obtener un punto específico por ID
+// Obtener un punto especifico por ID
 export const obtenerPuntoPorId = async (id) => {
   try {
     const response = await fetch(`${API_BASE_URL}/puntos/${id}`);

@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 // Ruta al archivo de datos
 const puntosFilePath = path.join(__dirname, '../data/puntos.js');
 
-// Función para leer los datos (manejo de errores explícito)
+// Funcion para leer los datos (manejo de errores explicito)
 const leerPuntos = () => {
   try {
     const datos = fs.readFileSync(puntosFilePath, 'utf-8');
@@ -34,7 +34,7 @@ router.get('/', (req, res) => {
   }
 });
 
-// GET - Obtener un punto específico por ID
+// GET - Obtener un punto especifico por ID
 router.get('/:id', (req, res) => {
   try {
     const { id } = req.params;

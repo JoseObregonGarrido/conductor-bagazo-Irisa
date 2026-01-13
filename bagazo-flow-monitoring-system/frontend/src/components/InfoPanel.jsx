@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import '../styles/InfoPanel.css';
 
-// Mover esta función a un archivo de utilidades (ej: utils/colors.js) si se usa en Diagram
+// Mover esta funcion a un archivo de utilidades (ej: utils/colors.js) si se usa en Diagram
 const getColorClass = (color) => {
   const colorMap = {
     red: '#B81D1D',
@@ -13,11 +13,10 @@ const getColorClass = (color) => {
 };
 
 export default function InfoPanel({ punto, onClose }) {
-  // Eliminamos el estado 'mostrarAnimacion' ya que usaremos 'key'
+  // Eliminamos el estado 'mostrarAnimacion' ya que usaremos una 'key'
   // const [mostrarAnimacion, setMostrarAnimacion] = useState(false); 
 
  
-
   if (!punto) {
     return (
       <div className="info-panel">
@@ -30,7 +29,7 @@ export default function InfoPanel({ punto, onClose }) {
   }
 
   return (
-    /*  CLAVE DE OPTIMIZACIÓN: Usar 'key' fuerza a React a recrear el DOM, 
+    /*  CLAVE DE OPTIMIZACION: Usar 'key' fuerza a React a recrear el DOM, 
        reiniciando la animación CSS sin necesidad de setTimeout. */
     <div className="info-panel animated" key={punto.id}> 
       <div className="info-header">

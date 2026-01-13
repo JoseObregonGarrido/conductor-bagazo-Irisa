@@ -93,9 +93,9 @@ export default function Model3D() {
                 const maxDim = Math.max(size.x, size.y, size.z);
                 const fov = camera.fov * (Math.PI / 180);
                 
-                // --- VOLVIENDO A LOS VALORES ORIGINALES (EL ZOOM MELO) ---
+                
                 let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-                cameraZ *= 3.0; // Revertido de 4.5 a 3.0
+                cameraZ *= 3.0; 
 
                 camera.position.set(center.x, center.y + maxDim * 0.5, cameraZ); // Revertido 0.8 a 0.5
                 camera.lookAt(center);
@@ -107,7 +107,7 @@ export default function Model3D() {
             (error) => console.error('Error al cargar el modelo:', error)
         );
 
-        // --- 5. BUCLE DE ANIMACIÓN ---
+        // --- 5. BUCLE DE ANIMACION ---
         const animate = () => {
             animationFrameIdRef.current = requestAnimationFrame(animate);
             if (controlsRef.current) controlsRef.current.update();

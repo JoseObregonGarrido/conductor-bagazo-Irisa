@@ -1,4 +1,4 @@
-/* Previene Layout Shift con altura mínima definida */
+/* Previene Layout Shift con altura minima definida */
 body {
   margin: 0;
   padding: 0;
@@ -19,7 +19,7 @@ body {
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
-  /* Altura mínima para prevenir CLS */
+  /* Altura minima para prevenir CLS */
   min-height: calc(100vh - 180px); /* 180px = header + footer aproximado */
 }
 
@@ -67,7 +67,7 @@ body {
   justify-content: center;
   padding: 4rem 2rem;
   text-align: center;
-  /* Altura mínima consistente para estados de carga */
+  /* Altura minima consistente para estados de carga */
   min-height: 500px;
 }
 
@@ -85,7 +85,7 @@ body {
   width: 40px;
   height: 40px;
   animation: spin 1s linear infinite;
-  /* Prevenir shifts durante la animación */
+  /* Prevenir shifts durante la animacion */
   will-change: transform;
 }
 
@@ -131,7 +131,7 @@ body {
   color: #cbd5e1;
   padding: 2rem;
   font-size: 1.1rem;
-  /* Altura mínima para prevenir shifts */
+  /* Altura minima para prevenir shifts */
   min-height: 200px;
   display: flex;
   align-items: center;
@@ -234,7 +234,7 @@ body {
   }
 }
 
-/* Desktop Alta Resolución: 1920 x 1080 */
+/* Desktop Alta Resolucion: 1920 x 1080 */
 @media (min-width: 1920px) {
   .main-content {
     padding: 1rem;

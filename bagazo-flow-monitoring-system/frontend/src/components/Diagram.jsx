@@ -1,14 +1,14 @@
-import { useState, lazy, Suspense } from 'react'; // Importamos lazy y Suspense aquí también
+import { useState, lazy, Suspense } from 'react'; // Importamos lazy y Suspense aqui tambien
 import '../styles/Diagram.css';
 
-//  Importación Dinámica: Solo carga el JS de Model3D cuando Diagram se monta.
+//  Importacion Dinamica: Solo carga el JS de Model3D cuando Diagram se monta.
 const Model3D = lazy(() => import('./Model3D'));
 
 export default function Diagram({ puntos, onPuntoClick }) {
   const [puntoActivo, setPuntoActivo] = useState(null);
 
   const getColorClass = (color) => {
-    // ... código de getColorClass
+    // codigo de getColorClass
     const colorMap = {
       red: '#B81D1D',
       green: '#006B42',
@@ -36,9 +36,9 @@ export default function Diagram({ puntos, onPuntoClick }) {
           </Suspense>
         </div>
 
-        {/* Leyenda (código ligero que se carga rápido) */}
+        {/* Leyenda (codigo ligero que se carga rapido) */}
         <div className="diagram-legend">
-          {/* ... resto del código de la leyenda ... */}
+          {/* resto del codigo de la leyenda  */}
           <p className="legend-title">Selecciona un conductor para ver los detalles:</p>
           <div className="legend-items" role="group" aria-label="Conductores">
             {puntos.map((punto) => (

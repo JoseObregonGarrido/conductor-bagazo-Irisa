@@ -1,4 +1,4 @@
-// defer_css.js (Versión Final para el formato específico de Vite)
+// defer_css.js (Version Final para el formato especifico de Vite)
 import fs from 'fs';
 import path from 'path';
 
@@ -8,7 +8,7 @@ const indexPath = path.resolve(process.cwd(), 'dist', 'index.html');
 try {
   let html = fs.readFileSync(indexPath, 'utf-8');
 
-  // Regex específico para encontrar la etiqueta <link rel="stylesheet" crossorigin href="...">
+  // Regex especifico para encontrar la etiqueta <link rel="stylesheet" crossorigin href="...">
   // Captura el valor de la URL del CSS en el grupo 1: "([^"]+)"
   const cssLinkRegex = /<link\s+rel="stylesheet"\s+crossorigin\s+href="([^"]+\.css)">/;
   
@@ -31,7 +31,7 @@ try {
     console.log(` CSS deferral aplicado al archivo: ${cssPath}`);
 
   } else {
-    // Si no lo encuentra, intentamos con un patrón más simple por si el formato ha cambiado
+    // Si no lo encuentra, intentamos con un patron mas simple por si el formato ha cambiado
     console.log(' No se encontró la etiqueta <link rel="stylesheet" crossorigin...>. Verificando formato simple...');
     
     const simpleCssRegex = /<link\s+rel="stylesheet"\s+href="([^"]+\.css)">/;

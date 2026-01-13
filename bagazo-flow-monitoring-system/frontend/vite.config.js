@@ -7,7 +7,7 @@ import viteCompression from 'vite-plugin-compression'
 
 export default defineConfig({
     // La propiedad 'base: "./"' es crucial para usar rutas relativas 
-    // en los assets compilados. Esto asegura que la aplicación se cargue 
+    // en los assets compilados. Esto asegura que la aplicacion se cargue 
     // correctamente desde cualquier subdirectorio del servidor, lo que 
     // resuelve el problema de localización de archivos en el renderizado de Googlebot.
     base: './', 
@@ -36,11 +36,11 @@ export default defineConfig({
     build: {
         outDir: 'dist',
         sourcemap: false,
-        // Incrementa el límite de advertencia por el tamaño inherente de Three.js.
+        // Incrementa el limite de advertencia por el tamaño inherente de Three.js.
         chunkSizeWarningLimit: 1600, 
         rollupOptions: {
             output: {
-                // Estrategia de separación de código (Code Splitting) para aislar librerías pesadas.
+                // Estrategia de separación de código (Code Splitting) para aislar librerias pesadas.
                 manualChunks(id) {
                     // Separa Three.js.
                     if (id.includes('node_modules/three')) {
