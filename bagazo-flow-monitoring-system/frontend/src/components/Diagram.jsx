@@ -1,7 +1,7 @@
 import { useState, lazy, Suspense } from 'react'; // Importamos lazy y Suspense aquí también
 import '../styles/Diagram.css';
 
-// 🛑 Importación Dinámica: Solo carga el JS de Model3D cuando Diagram se monta.
+//  Importación Dinámica: Solo carga el JS de Model3D cuando Diagram se monta.
 const Model3D = lazy(() => import('./Model3D'));
 
 export default function Diagram({ puntos, onPuntoClick }) {
@@ -29,7 +29,7 @@ export default function Diagram({ puntos, onPuntoClick }) {
       
       <div className="diagram-content">
         
-        {/* 🛑 Suspense para el Modelo 3D */}
+        {/* Suspense para el Modelo 3D */}
         <div className="diagram-image-wrapper">
           <Suspense fallback={<div>Cargando Modelo 3D...</div>}>
             <Model3D />
