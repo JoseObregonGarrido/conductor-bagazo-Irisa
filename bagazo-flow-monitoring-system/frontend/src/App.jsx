@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import Header from './components/Header.jsx';
-import Footer from "./components/Footer.jsx";
+import Footer from "./components/footer.jsx";
 import Diagram from './components/Diagram.jsx';
 import InfoPanel from './components/InfoPanel.jsx';
 import { obtenerPuntos, verificarBackend } from './services/api.js';
