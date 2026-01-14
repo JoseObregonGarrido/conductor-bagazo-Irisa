@@ -1,0 +1,50 @@
+.model3d-container {
+  width: 100%;
+  /* Alto ideal para mantener perspectiva sin deformar el zoom */
+  height: 500px; 
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #0f172a;
+}
+
+.model3d-viewer {
+  width: 100%;
+  flex-grow: 1; 
+  height: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.model3d-viewer canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.model3d-info {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #FFFAFA;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+  font-size: 0.85rem;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.model3d-info p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .model3d-container { height: 400px; }
+  .model3d-info { font-size: 0.7rem; }
+}
+
+@media (max-width: 640px) {
+  .model3d-container { height: 350px; }
+  .model3d-info { font-size: 0.6rem; }
+}

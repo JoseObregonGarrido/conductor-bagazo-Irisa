@@ -1,0 +1,61 @@
+# Dependencias (En la raíz y cualquier subcarpeta)
+node_modules/
+**/node_modules/
+package-lock.json
+**/package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Variables de entorno (CRITICO - En la raíz y cualquier subcarpeta)
+.env
+**/.env
+.env.*
+**/.env.*
+.env.local
+.env.production
+.env.development
+!.env.example
+
+# Python virtual environment
+.venv/
+venv/
+ENV/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+dist-ssr/
+build/
+*.local
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Docker
+docker-compose.override.yml
+
+# Temporary
+*.tmp
+*.temp
+.cache/ 
