@@ -1,12 +1,16 @@
-# Dependencias
+# Dependencias (En la raíz y cualquier subcarpeta)
 node_modules/
+**/node_modules/
 package-lock.json
+**/package-lock.json
 yarn.lock
 pnpm-lock.yaml
 
-# Variables de entorno (CRITICO)
+# Variables de entorno (CRITICO - En la raíz y cualquier subcarpeta)
 .env
+**/.env
 .env.*
+**/.env.*
 .env.local
 .env.production
 .env.development
@@ -55,4 +59,3 @@ docker-compose.override.yml
 *.tmp
 *.temp
 .cache/
-EOF
