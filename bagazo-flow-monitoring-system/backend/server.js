@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import path from 'path'; // <--- NUEVA IMPORTACIÓN
-import expressStaticGzip from 'express-static-gzip'; // <--- NUEVA IMPORTACIÓN
+import path from 'path'; // <--- NUEVA IMPORTACION
+import expressStaticGzip from 'express-static-gzip'; // <--- NUEVA IMPORTACION
 import puntosRoutes from './routes/puntos.js';
 
 dotenv.config();
@@ -13,19 +13,19 @@ const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:5173';
 
 // --- Configuración de la Carpeta Frontend (Ruta absoluta) ---
 // Obtener el directorio actual del backend y apuntar a la carpeta 'dist' del frontend
-// NOTA: Esto asume que la carpeta 'dist' se genera en la raíz del monorepo
-// AJUSTE PARA DOCKER: Se usa path.resolve('dist') porque en el contenedor la carpeta está local
+// NOTA: Esto asume que la carpeta 'dist' se genera en la raiz del monorepo
+// AJUSTE PARA DOCKER: Se usa path.resolve('dist') porque en el contenedor la carpeta esta local
 const frontendDistPath = path.resolve('dist'); 
 
 // Middleware
 app.use(express.json());
-// Logging simple de peticiones (útil para evidencias)
+// Logging simple de peticiones (util para evidencias)
 app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.originalUrl}`);
   next();
 });
 
-// CORS (orígenes permitidos configurables)
+// CORS (origenes permitidos configurables)
 app.use(cors({ origin: CORS_ORIGIN }));
 
 // Parse URL-encoded (si se reciben formularios)
@@ -70,7 +70,7 @@ app.get('*', (req, res) => {
   });
 });
 
-// Middleware de manejo de errores (último middleware)
+// Middleware de manejo de errores (ultimo middleware)
 app.use((err, req, res, next) => {
   console.error('ERROR:', err);
   const status = err.status || 500;
