@@ -4,7 +4,7 @@ package-lock.json
 yarn.lock
 pnpm-lock.yaml
 
-# Variables de entorno (CRÍTICO)
+# Variables de entorno (CRITICO)
 .env
 .env.*
 .env.local
