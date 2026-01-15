@@ -9,7 +9,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:5173'; 
+const CORS_ORIGIN = process.env.CORS_ORIGIN || 'https://bagazo-frontend.onrender.com'; 
 
 // --- Configuración de la Carpeta Frontend (Ruta absoluta) ---
 // Obtener el directorio actual del backend y apuntar a la carpeta 'dist' del frontend
