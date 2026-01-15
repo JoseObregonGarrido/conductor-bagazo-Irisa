@@ -1,23 +1,19 @@
 # Etapa 1: Base con Node.js
 FROM node:18-alpine
 
-# Establecer directorio de trabajo
 WORKDIR /app
 
-# Copiar archivos de dependencias
-COPY package.json package-lock.json ./
+# 1. Copiamos solo el package.json
+COPY package.json ./
 
-# Instalar dependencias
-RUN npm ci --only=production
+# 2. Usamos 'npm install' en lugar de 'npm ci' (ya que no hay lock file)
+RUN npm install --only=production
 
-# Copiar el resto de la aplicacion
 COPY . .
 
-# Exponer puerto
-EXPOSE 5000
+# El puerto debe coincidir con lo que configuramos en Render (10000)
+EXPOSE 10000
 
-# Variable de entorno
 ENV NODE_ENV=production
 
-# Comando para iniciar
 CMD ["npm", "start"]
