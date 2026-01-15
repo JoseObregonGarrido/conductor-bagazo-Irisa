@@ -4,16 +4,17 @@ FROM node:18-alpine
 # Establecer directorio de trabajo
 WORKDIR /app
 
-# Copiar archivos de dependencias
+# 1. Copiar SOLO el package.json (ya que no hay package-lock.json)
 COPY package.json ./
 
-# Instalar dependencias
-RUN npm ci --only=production
+# 2. Cambiamos 'npm ci' por 'npm install' para que no chille por el archivo lock
+# Usamos --omit=dev para que la imagen sea liviana y solo para producción
+RUN npm install --omit=dev
 
-# Copiar el resto de la aplicacion
+# 3. Copiar el resto de la aplicacion
 COPY . .
 
-# Exponer puerto
+# Exponer puerto (Render usará el que definas en el panel, pero 5000 es el estándar de tu app)
 EXPOSE 5000
 
 # Variable de entorno
