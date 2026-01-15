@@ -4,7 +4,7 @@ FROM node:18-alpine
 WORKDIR /app
 
 # 1. Copiamos solo el package.json
-COPY package.json ./
+COPY package.json ./    
 
 # 2. Usamos 'npm install' en lugar de 'npm ci' (ya que no hay lock file)
 RUN npm install --only=production
