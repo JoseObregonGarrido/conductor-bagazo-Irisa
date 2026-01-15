@@ -1,144 +1,58 @@
-# conductor-bagazo-Irisa
+Entendido, parcero. Aquí lo tienes directo al grano, sin emojis y sin la tabla de contenidos para que quede lo más limpio posible.
 
-Plataforma de monitoreo interactivo para conductores de bagazo en IRISA. Diagrama clickeable con parámetros.
+Copia y pega este bloque:
 
-# conductor-bagazo-Irisa
+Bagazo Flow Monitoring System (BFMS)
+Sistema de visualización interactiva para la supervisión de conductores de bagazo, integrando un modelo 3D detallado y una interfaz de consulta de datos técnicos.
 
-Plataforma de monitoreo interactivo para conductores de bagazo en IRISA. Diagrama clickeable con parámetros.
+Descripción del Proyecto
+El BFMS es una herramienta visual diseñada para la identificación y consulta de conductores en plantas de procesamiento.
 
-## Contenido
+Visualización 3D: Un modelo tridimensional optimizado permite observar la disposición física de los conductores.
 
-- `bagazo-flow-monitoring-system/backend` — API Express que sirve datos y rutas.
-- `bagazo-flow-monitoring-system/frontend` — Frontend React + Vite que muestra el diagrama y paneles.
-- `tests/` — Scripts de Playwright para pruebas E2E y snapshots.
+Interactividad: El sistema cuenta con leyendas y botones interactivos ubicados en la parte inferior. Al interactuar con ellos, el usuario puede consultar información específica de cada conductor, como su tipo y una descripción detallada de su función.
 
-## Requisitos
+Arquitectura
+Estructura de Monorepo con despliegue independiente mediante contenedores Docker:
 
-- Node.js >= 20
-- npm >= 8
-- Git (opcional)
-- Docker & Docker Compose (opcional, recomendado para despliegues)
+Plaintext
+bagazo-flow-monitoring-system/
+├── Backend/                 # API REST y Servidor de archivos
+│   ├── routes/              # Gestión de endpoints para consulta de conductores
+│   ├── server.js            # Lógica del servidor y serving del frontend
+│   └── Dockerfile           # Imagen de producción
+├── Frontend/                # Interfaz de Usuario (React/Vite)
+│   ├── src/                 # Lógica de botones y visor Three.js
+│   ├── public/models/       # Modelos 3D optimizados (.GLB)
+│   └── Dockerfile           # Build multi-etapa
+└── docker-compose.yml       # Orquestación local completa
+Optimización de Activos 3D
+Para garantizar que el visor 3D cargue rápidamente en cualquier navegador, el modelo original de 32.5 MB se optimizó a menos de 5 MB mediante las siguientes técnicas:
 
-## Instalación rápida (local)
+Draco Compression: Compresión geométrica para carga veloz.
 
-1. Clona el repositorio:
+WebP Textures: Texturas optimizadas a 1024px.
 
-```bash
-git clone <url-del-repo>
-cd conductor-bagazo-Irisa
-```
+Mesh Simplification: Reducción selectiva de polígonos en un 60%.
 
-2. Instala dependencias (dos terminales o en paralelo):
+Guía de Instalación (Paso a Paso)
+1. Clonar el Repositorio
+Bash
+git clone https://github.com/TU_USUARIO/bagazo-flow-monitoring-system.git
+cd bagazo-flow-monitoring-system
+2. Ejecución con Docker (Recomendado)
+Asegúrese de tener Docker Desktop activo y ejecute:
 
-```bash
-cd bagazo-flow-monitoring-system/backend
-npm install
+Bash
+docker-compose up --build
+Interfaz Web: http://localhost:5173
 
-# en otra terminal
-cd ../../bagazo-flow-monitoring-system/frontend
-npm install
-```
+API de Datos: http://localhost:5000/api
 
-## Ejecutar en desarrollo
+3. Ejecución Manual
+Backend: cd Backend && npm install && npm start
 
-- Backend (carpeta `bagazo-flow-monitoring-system/backend`):
+Frontend: cd Frontend && npm install && npm run dev
 
-```bash
-npm run dev
-# o
-npm start
-```
-
-- Frontend (carpeta `bagazo-flow-monitoring-system/frontend`):
-
-```bash
-npm run dev
-```
-
-El frontend por defecto usa Vite; abre la URL que imprima la consola (normalmente `http://localhost:5173`).
-
-## Ejecutar con Docker Compose
-
-Este repositorio incluye un `docker-compose.yml` para levantar servicios juntos (si está configurado).
-
-```bash
-docker compose up --build
-```
-
-Parar y eliminar contenedores:
-
-```bash
-docker compose down
-```
-
-### Recomendaciones de despliegue y seguridad
-
-- Considera agregar healthchecks (ya incluidos en `docker-compose.yml`) para mejorar la robustez y permitir a orquestadores detectar servicios caídos.
-- En producción, revisa la seguridad de las variables de entorno: evita incrustar secretos en `environment`. Usa `env_file`, `secrets` de Docker, o un gestor de secretos externo.
-- Reduce la exposición de puertos innecesarios; protege servicios detrás de un reverse-proxy (NGINX, Traefik) y reglas de firewall.
-
-Comandos útiles para monitoreo y depuración:
-
-```bash
-# Ver el estado de los servicios (puertos, estado, reinicios)
-docker compose ps
-
-# Ver logs en tiempo real (añade -f para "follow")
-docker compose logs -f frontend
-docker compose logs -f backend
-
-# Para ver logs de todos los servicios
-docker compose logs -f
-```
-
-Si quieres, puedo agregar un archivo `.env.example` y mostrar cómo usar `secrets` para los valores sensibles.
-
-## Construir y servir producción (frontend)
-
-```bash
-cd bagazo-flow-monitoring-system/frontend
-npm run build
-npm run preview   # sirve la versión construida en modo preview
-# o
-npm run serve
-```
-
-## Tests E2E (Playwright)
-
-Las pruebas de Playwright están en la carpeta `tests/` y los reportes en `playwright-report/`.
-
-Desde la raíz (si Playwright está configurado en el `package.json` root):
-
-```bash
-npm test
-# o
-npx playwright test
-```
-
-## Estructura del proyecto (resumen)
-
-- `bagazo-flow-monitoring-system/backend`
-  - `server.js` — servidor Express principal
-  - `routes/` — rutas de la API (por ejemplo `puntos.js`)
-  - `data/` — datos simulados usados por la API
-
-- `bagazo-flow-monitoring-system/frontend`
-  - `src/` — código fuente React
-  - `public/` — recursos estáticos (modelos 3D, etc.)
-  - `defer_css.js` — script post-build
-
-## Sugerencias y tareas futuras
-
-- Añadir tests unitarios (Jest + React Testing Library) para `src/components`.
-- Añadir CI (GitHub Actions) que instale dependencias y ejecute tests y lint.
-- Mejorar la dockerización para despliegues (imágenes separadas para backend/frontend).
-
-## Contribución
-
-1. Haz fork y crea un branch por feature.
-2. Añade tests y documentación para cambios relevantes.
-3. Abre un Pull Request describiendo los cambios.
-
-## Licencia
-
-Proyecto con licencia MIT.
+Despliegue y CI/CD
+El sistema está desplegado en Render. Cada cambio en la rama main genera automáticamente una nueva versión optimizada del contenedor, asegurando que el visor 3D y la base de datos de consulta estén siempre disponibles en la nube.
