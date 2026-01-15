@@ -80,7 +80,7 @@ export default function Model3D() {
         loader.setDRACOLoader(dracoLoader);
 
         loader.load(
-            '/model/modelo-3d-comprimido.glb',
+            '/model/modelo-3d-comprimido-v1.glb',
             (gltf) => {
                 const model = gltf.scene;
                 model.scale.set(0.8, 0.8, 0.8); 
