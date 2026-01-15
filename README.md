@@ -1,9 +1,5 @@
-Entendido, parcero. Aquí lo tienes directo al grano, sin emojis y sin la tabla de contenidos para que quede lo más limpio posible.
-
-Copia y pega este bloque:
-
 Bagazo Flow Monitoring System (BFMS)
-Sistema de visualización interactiva para la supervisión de conductores de bagazo, integrando un modelo 3D detallado y una interfaz de consulta de datos técnicos.
+Sistema de visualización interactiva  de conductores de bagazo, integrando un modelo 3D detallado y una interfaz de consulta de datos técnicos.
 
 Descripción del Proyecto
 El BFMS es una herramienta visual diseñada para la identificación y consulta de conductores en plantas de procesamiento.
